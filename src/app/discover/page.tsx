@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
+import BottomNavBar from '@/components/BottomNavBar';
 
 export default function Discover() {
   const moods = [
@@ -143,29 +143,7 @@ export default function Discover() {
         </section>
       </main>
 
-      {/* BottomNavBar */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 flex justify-around items-center px-6 py-4 max-w-2xl mx-auto rounded-[24px] border border-white/10 m-6 mb-10 shadow-[0_0_30px_rgba(163,230,53,0.15)] bg-[#1A1A1A]/60 backdrop-blur-[40px]">
-        <Link className="flex flex-col items-center justify-center text-tertiary neon-glow-active scale-110 cursor-pointer" href="/discover">
-          <span className="material-symbols-outlined mb-1" style={{ fontVariationSettings: "'FILL' 1" }}>explore</span>
-          <span className="font-h1 text-[10px] uppercase font-bold tracking-widest">DISCOVER</span>
-        </Link>
-        <Link className="flex flex-col items-center justify-center text-white/40 hover:text-white transition-all duration-300 cursor-pointer" href="#">
-          <span className="material-symbols-outlined mb-1">library_music</span>
-          <span className="font-h1 text-[10px] uppercase font-bold tracking-widest">LIBRARY</span>
-        </Link>
-        <Link className="flex flex-col items-center justify-center text-white/40 hover:text-white transition-all duration-300 cursor-pointer" href="/player">
-          <span className="material-symbols-outlined mb-1">graphic_eq</span>
-          <span className="font-h1 text-[10px] uppercase font-bold tracking-widest">PLAYER</span>
-        </Link>
-        <Link className="flex flex-col items-center justify-center text-white/40 hover:text-white transition-all duration-300 cursor-pointer" href="#">
-          <span className="material-symbols-outlined mb-1">search</span>
-          <span className="font-h1 text-[10px] uppercase font-bold tracking-widest">SEARCH</span>
-        </Link>
-        <Link className="flex flex-col items-center justify-center text-white/40 hover:text-white transition-all duration-300 cursor-pointer" href="#">
-          <span className="material-symbols-outlined mb-1">person</span>
-          <span className="font-h1 text-[10px] uppercase font-bold tracking-widest">PROFILE</span>
-        </Link>
-      </nav>
+      <BottomNavBar />
     </div>
   );
 }

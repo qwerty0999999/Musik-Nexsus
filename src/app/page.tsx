@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import BottomNavBar from '@/components/BottomNavBar';
 
 export default function Home() {
   return (
@@ -195,29 +196,7 @@ export default function Home() {
         </Link>
       </motion.div>
 
-      {/* BottomNavBar (Mobile Only) */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 flex justify-around items-center px-6 py-4 max-w-2xl mx-auto rounded-[24px] border border-white/10 m-6 mb-10 bg-[#1A1A1A]/60 backdrop-blur-[40px] shadow-[0_0_30px_rgba(163,230,53,0.15)]">
-        <Link className="flex flex-col items-center justify-center text-tertiary drop-shadow-[0_0_8px_rgba(0,226,147,0.8)] scale-110 font-h1 text-[10px] uppercase font-bold tracking-widest" href="/discover">
-          <span className="material-symbols-outlined mb-1">explore</span>
-          DISCOVER
-        </Link>
-        <Link className="flex flex-col items-center justify-center text-white/40 hover:text-white transition-all duration-300 font-h1 text-[10px] uppercase font-bold tracking-widest" href="#">
-          <span className="material-symbols-outlined mb-1">library_music</span>
-          LIBRARY
-        </Link>
-        <Link className="flex flex-col items-center justify-center text-white/40 hover:text-white transition-all duration-300 font-h1 text-[10px] uppercase font-bold tracking-widest" href="/player">
-          <span className="material-symbols-outlined mb-1">graphic_eq</span>
-          PLAYER
-        </Link>
-        <Link className="flex flex-col items-center justify-center text-white/40 hover:text-white transition-all duration-300 font-h1 text-[10px] uppercase font-bold tracking-widest" href="#">
-          <span className="material-symbols-outlined mb-1">search</span>
-          SEARCH
-        </Link>
-        <Link className="flex flex-col items-center justify-center text-white/40 hover:text-white transition-all duration-300 font-h1 text-[10px] uppercase font-bold tracking-widest" href="#">
-          <span className="material-symbols-outlined mb-1">person</span>
-          PROFILE
-        </Link>
-      </nav>
+      <BottomNavBar />
     </div>
   );
 }
