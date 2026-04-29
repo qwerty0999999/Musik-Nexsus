@@ -31,7 +31,7 @@ export default function Home() {
       {/* TopAppBar (Web Only) */}
       <header className="hidden md:flex fixed top-0 w-full z-50 justify-between items-center px-10 h-20 bg-[#1A1A1A]/60 backdrop-blur-[20px] border-b border-white/10">
         <div className="flex items-center gap-4">
-          <button className="text-white/70 hover:text-tertiary transition-colors duration-300">
+          <button aria-label="Open menu" className="text-white/70 hover:text-tertiary transition-colors duration-300">
             <span className="material-symbols-outlined text-[24px]">menu</span>
           </button>
         </div>
@@ -118,7 +118,7 @@ export default function Home() {
                     className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                    <button className="w-12 h-12 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center shadow-[0_0_20px_rgba(0,226,147,0.5)] transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
+                    <button aria-label={`Play ${track.title}`} className="w-12 h-12 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center shadow-[0_0_20px_rgba(0,226,147,0.5)] transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
                       <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
                     </button>
                   </div>
@@ -185,11 +185,11 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex items-center gap-6 text-on-surface">
-                <button className="hover:text-tertiary transition-colors"><span className="material-symbols-outlined">skip_previous</span></button>
-                <button className="w-10 h-10 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center shadow-[0_0_15px_rgba(0,226,147,0.5)] hover:scale-105 transition-transform">
+                <button aria-label="Previous track" className="hover:text-tertiary transition-colors"><span className="material-symbols-outlined">skip_previous</span></button>
+                <button aria-label="Play/Pause" className="w-10 h-10 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center shadow-[0_0_15px_rgba(0,226,147,0.5)] hover:scale-105 transition-transform">
                   <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>pause</span>
                 </button>
-                <button className="hover:text-tertiary transition-colors"><span className="material-symbols-outlined">skip_next</span></button>
+                <button aria-label="Next track" className="hover:text-tertiary transition-colors"><span className="material-symbols-outlined">skip_next</span></button>
               </div>
             </div>
           </div>

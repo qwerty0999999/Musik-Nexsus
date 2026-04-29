@@ -40,7 +40,7 @@ export default function Discover() {
       {/* TopAppBar */}
       <header className="fixed top-0 w-full z-50 flex justify-between items-center px-10 h-20 bg-[#1A1A1A]/60 backdrop-blur-[20px] border-b border-white/10 text-white/70">
         <div className="flex items-center gap-4 text-tertiary">
-          <span className="material-symbols-outlined hover:text-white transition-colors duration-300 cursor-pointer">menu</span>
+          <button aria-label="Open menu" className="material-symbols-outlined hover:text-white transition-colors duration-300 cursor-pointer">menu</button>
         </div>
         <div className="text-2xl font-black text-white tracking-[0.2em] uppercase font-h1">
           PULSE
@@ -130,7 +130,7 @@ export default function Discover() {
                     className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                   />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <button className="w-12 h-12 rounded-full bg-tertiary text-black flex items-center justify-center shadow-[0_0_20px_rgba(0,226,147,0.5)]">
+                    <button aria-label={`Play ${seq.title}`} className="w-12 h-12 rounded-full bg-tertiary text-black flex items-center justify-center shadow-[0_0_20px_rgba(0,226,147,0.5)]">
                       <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
                     </button>
                   </div>

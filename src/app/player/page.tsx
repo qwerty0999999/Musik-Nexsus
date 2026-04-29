@@ -19,12 +19,12 @@ export default function Player() {
       {/* Top Navigation */}
       <header className="absolute top-0 left-0 right-0 z-50 flex justify-between items-center px-10 h-20 w-full">
         <Link href="/">
-          <button className="w-12 h-12 flex items-center justify-center rounded-full glass-panel text-white/70 hover:text-tertiary transition-colors">
+          <button aria-label="Collapse player" className="w-12 h-12 flex items-center justify-center rounded-full glass-panel text-white/70 hover:text-tertiary transition-colors">
             <span className="material-symbols-outlined">expand_more</span>
           </button>
         </Link>
         <div className="font-h3 text-[32px] font-black text-white tracking-tighter uppercase font-h1">PULSE</div>
-        <button className="w-12 h-12 flex items-center justify-center rounded-full glass-panel text-white/70 hover:text-tertiary transition-colors">
+        <button aria-label="More options" className="w-12 h-12 flex items-center justify-center rounded-full glass-panel text-white/70 hover:text-tertiary transition-colors">
           <span className="material-symbols-outlined">more_vert</span>
         </button>
       </header>
@@ -93,23 +93,23 @@ export default function Player() {
 
         {/* Controls */}
         <div className="flex items-center justify-between w-full max-w-sm px-4">
-          <button className="text-white/40 hover:text-on-surface transition-colors">
+          <button aria-label="Shuffle" className="text-white/40 hover:text-on-surface transition-colors">
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>shuffle</span>
           </button>
-          <button className="text-white/70 hover:text-on-surface transition-colors">
+          <button aria-label="Previous track" className="text-white/70 hover:text-on-surface transition-colors">
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>skip_previous</span>
           </button>
           
           {/* Play/Pause FAB */}
-          <button className="w-20 h-20 rounded-full bg-tertiary-container flex items-center justify-center text-tertiary glow-effect-heavy hover:scale-105 transition-transform border border-tertiary/30 relative overflow-hidden group">
+          <button aria-label="Play/Pause" className="w-20 h-20 rounded-full bg-tertiary-container flex items-center justify-center text-tertiary glow-effect-heavy hover:scale-105 transition-transform border border-tertiary/30 relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-tertiary/20 to-transparent rounded-full pointer-events-none"></div>
             <span className="material-symbols-outlined text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>pause</span>
           </button>
           
-          <button className="text-white/70 hover:text-on-surface transition-colors">
+          <button aria-label="Next track" className="text-white/70 hover:text-on-surface transition-colors">
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>skip_next</span>
           </button>
-          <button className="text-tertiary hover:text-tertiary-fixed transition-colors">
+          <button aria-label="Repeat" className="text-tertiary hover:text-tertiary-fixed transition-colors">
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>repeat</span>
           </button>
         </div>
