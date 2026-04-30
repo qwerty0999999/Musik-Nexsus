@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   description: "Feel the beat of the future",
 };
 
+import { MusicProvider } from "@/context/MusicContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -34,7 +36,9 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} ${manrope.variable} antialiased`}
       >
-        {children}
+        <MusicProvider>
+          {children}
+        </MusicProvider>
       </body>
     </html>
   );
