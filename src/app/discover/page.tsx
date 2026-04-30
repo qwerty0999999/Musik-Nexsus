@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,7 +17,7 @@ interface SearchResult {
   url: string;
 }
 
-export default function Discover() {
+function DiscoverContent() {
   const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -138,5 +138,17 @@ export default function Discover() {
 
       <BottomNavBar />
     </div>
+  );
+}
+
+export default function Discover() {
+  return (
+    <Suspense fallback={
+      <div className="bg-background min-h-screen flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-tertiary border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    }>
+      <DiscoverContent />
+    </Suspense>
   );
 }
