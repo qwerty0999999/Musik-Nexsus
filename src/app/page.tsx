@@ -10,21 +10,21 @@ export default function Home() {
   const { currentTrack, isPlaying, togglePlay, playTrack } = useMusic();
 
   const handleHeroPlay = () => {
-    // Play a default trending track if nothing is playing
+    // Play a default Jamendo track
     const trendingTrack = {
-      id: "trending_hero",
-      title: "Neon Nights",
-      artist: "Synthwave Collective",
-      thumbnail: "https://lh3.googleusercontent.com/aida-public/AB6AXuCp343hviZbbNFe9JS7bXersVcMWJpagar2pWSqUKelxr_Dt-4ZQYWqrjjeyuYo0Yj5Ax8qj7RcmI6WyUhoSfRE1rZHEfnqMpmMJDaXAuBvn3a6hcS9iBsZKKaR_53KT3T212kMtGpdCYxWDpBe5AX71um4uOoys5UA4iwtNvif_PslCSoM69SUhHNpInwcVA-t4K6AvlRqu0MTME6ek0PTniWTDQPenSfo4yY53p9HYjCf_QUpgA1ExJO-2hnpD4ilBVCSzJ_MGOIL",
-      url: "https://www.youtube.com/watch?v=3nQNiWdeH2Q" // NCS Classic as example
+      id: "1869818",
+      title: "Electronic",
+      artist: "A-Mase",
+      thumbnail: "https://images.jamendo.com/albums/s223/223769/covers/1.300.jpg",
+      url: "https://prod-1.storage.jamendo.com/?trackid=1869818&format=mp31&from=app-56d30808"
     };
     playTrack(trendingTrack);
   };
 
   const recommendedTracks = [
-    { title: "Neon Nights", artist: "Synthwave Collective", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCp343hviZbbNFe9JS7bXersVcMWJpagar2pWSqUKelxr_Dt-4ZQYWqrjjeyuYo0Yj5Ax8qj7RcmI6WyUhoSfRE1rZHEfnqMpmMJDaXAuBvn3a6hcS9iBsZKKaR_53KT3T212kMtGpdCYxWDpBe5AX71um4uOoys5UA4iwtNvif_PslCSoM69SUhHNpInwcVA-t4K6AvlRqu0MTME6ek0PTniWTDQPenSfo4yY53p9HYjCf_QUpgA1ExJO-2hnpD4ilBVCSzJ_MGOIL", url: "https://www.youtube.com/watch?v=3nQNiWdeH2Q" },
-    { title: "Midnight Echoes", artist: "The Void Walkers", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBVp28JKZHZiF3Dpc7V_RxEk53kEvAVLltYT0W35ueEHuOPXN7A4vnHqfD4xWtwWMlqT5dtm-xzfgP0wp6jIXC9xGkfB7oHBikXB0GBduXnlf9lk_8iAKPqnHQzMIkb-pzXISd3gCstoa9-Hcn4zs94TnY2MJIGo57yIqsVf9zwSBw22CHlnwhHWZ-INLe8EjhwuwZBNyFmZgRojZQzeEaullHJOgLOmnuVCt7UASRWxgsmVfLFVejJ1_iMj2e7SxQu3JYrLbsg4ceg", url: "https://www.youtube.com/watch?v=yJg-Y5byMMw" },
-    { title: "Deep Bass Therapy", artist: "Subsonic Focus", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuD-EBFm6aCshar8QXrXkXdUj0GXj6cWq8JEcNtOznOccO6SuczeUYu03ZbZrwUwEmjYZ6uMXa9JAgl51kMrPbGqMdjIj1lIc49DqskS7ItIDtTG55nrs5dX6rSV2Pqukw5aCDaEQzTzk1at044h4EBGMNGQNDFKcHzVb31OCRhHZXWrcb3c5UAARfe4eRXFTT1OfTLsvij4vfvXHpHTg4Bso1yG2RcGqBAkQq-XVxjEB0vJ2so2LdC2dyq7MfQSW_8lFwh0gBLDEdRM", url: "https://www.youtube.com/watch?v=L7kF4MXXCoA" },
+    { id: "1869818", title: "Electronic", artist: "A-Mase", img: "https://images.jamendo.com/albums/s223/223769/covers/1.300.jpg", url: "https://prod-1.storage.jamendo.com/?trackid=1869818&format=mp31&from=app-56d30808" },
+    { id: "1874284", title: "Ambient", artist: "Pavel Yolkin", img: "https://images.jamendo.com/albums/s224/224321/covers/1.300.jpg", url: "https://prod-1.storage.jamendo.com/?trackid=1874284&format=mp31&from=app-56d30808" },
+    { id: "1870631", title: "Lo-Fi", artist: "Lofi Hour", img: "https://images.jamendo.com/albums/s223/223880/covers/1.300.jpg", url: "https://prod-1.storage.jamendo.com/?trackid=1870631&format=mp31&from=app-56d30808" },
   ];
 
   return (

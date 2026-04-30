@@ -106,11 +106,19 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   useEffect(() => {
     if (currentTrack && 'mediaSession' in navigator) {
-      navigator.mediaSession.metadata = new MediaMetadata({
-        title: currentTrack.title,
-        artist: currentTrack.artist,
-        artwork: [{ src: currentTrack.thumbnail, sizes: '512x512', type: 'image/png' }]
-      });
+      const artwork = currentTrack.thumbnail 
+        ? [{ src: currentTrack.thumbnail, sizes: '512x512', type: 'image/png' }]
+        : [];
+
+      try {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: currentTrack.title,
+          artist: currentTrack.artist,
+          artwork: artwork
+        });
+      } catch (err) {
+        console.error("Failed to set MediaMetadata:", err);
+      }
     }
   }, [currentTrack]);
 

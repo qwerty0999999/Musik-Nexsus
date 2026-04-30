@@ -55,15 +55,23 @@ function DiscoverContent() {
     <div className="bg-background text-on-surface font-body-md min-h-screen pb-32">
       <header className="fixed top-0 w-full z-50 flex justify-between items-center px-4 md:px-10 h-20 bg-[#1A1A1A]/80 backdrop-blur-2xl border-b border-white/10">
         <div className="flex items-center gap-4 flex-1">
-          <form onSubmit={onSearchSubmit} className="relative w-full max-w-md">
-            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
-            <input 
-              type="text" 
-              placeholder="Search pulse, artists, moods..." 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-surface-container/50 border border-white/10 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-tertiary/50 transition-colors"
-            />
+          <form onSubmit={onSearchSubmit} className="relative w-full max-w-md flex items-center gap-2">
+            <div className="relative flex-1">
+              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+              <input 
+                type="text" 
+                placeholder="Search pulse, artists, moods..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-surface-container/50 border border-white/10 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-tertiary/50 transition-colors"
+              />
+            </div>
+            <button 
+              type="submit"
+              className="px-6 py-2 rounded-full bg-tertiary text-black font-bold hover:scale-105 active:scale-95 transition-all"
+            >
+              Search
+            </button>
           </form>
         </div>
         <div className="hidden md:block text-2xl font-black text-white tracking-[0.2em] uppercase font-h1 px-10">PULSE</div>
