@@ -12,14 +12,24 @@ export async function GET(request: Request) {
   }
 
   try {
-    const stream = await play.stream(url);
+    console.log('Attempting to stream URL:', url);
     
-    // Return the stream as a Response
-    // Note: Vercel has a 10s timeout for hobby tier.
-    // For long audio, you might need a different approach, but this is the direct migration.
+    // Check if the URL is a valid YouTube URL
+    if (!url.includes('youtube.com') && !url.includes('youtu.be')) {
+      return new Response(JSON.stringify({ error: 'Only YouTube URLs are supported currently' }), { 
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    const stream = await play.stream(url, {
+      discordPlayerCompatibility: true // Often improves compatibility in serverless environments
+    });
+    
     return new Response(stream.stream as any, {
       headers: {
-        'Content-Type': 'audio/mpeg',
+        'Content-Type': stream.type || 'audio/mpeg',
+        'Cache-Control': 'no-cache',
         'Transfer-Encoding': 'chunked',
       }
     });
