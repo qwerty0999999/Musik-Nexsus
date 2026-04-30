@@ -65,7 +65,7 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       if (currentTrack) {
         setHistory(prev => [currentTrack, ...prev.slice(0, 10)]);
       }
-      audioRef.current.src = `http://localhost:5000/api/stream?url=${encodeURIComponent(track.url)}`;
+      audioRef.current.src = `/api/stream?url=${encodeURIComponent(track.url)}`;
       audioRef.current.play();
       setCurrentTrack(track);
       setIsPlaying(true);
