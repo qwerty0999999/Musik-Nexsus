@@ -131,7 +131,16 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }
 
       audioRef.current.src = `/api/stream?url=${encodeURIComponent(track.url)}`;
-      audioRef.current.play().catch(err => console.error("Playback failed:", err));
+      
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          if (err.name !== 'AbortError') {
+            console.error("Playback failed:", err);
+          }
+        });
+      }
+      
       setCurrentTrack(track);
       setIsPlaying(true);
     }
@@ -146,7 +155,14 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const resumeTrack = () => {
     if (audioRef.current && currentTrack) {
-      audioRef.current.play();
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          if (err.name !== 'AbortError') {
+            console.error("Playback failed:", err);
+          }
+        });
+      }
       setIsPlaying(true);
     }
   };
