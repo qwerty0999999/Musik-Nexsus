@@ -23,9 +23,13 @@ export async function GET(request: Request) {
         'Transfer-Encoding': 'chunked',
       }
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Stream error:', error);
-    return new Response(JSON.stringify({ error: 'Failed to stream audio' }), { 
+    return new Response(JSON.stringify({ 
+      error: 'Failed to stream audio',
+      message: error.message || 'Unknown error',
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    }), { 
       status: 500,
       headers: { 'Content-Type': 'application/json' }
     });
