@@ -82,7 +82,7 @@ function DiscoverContent() {
                   <motion.div 
                     key={track.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
                     className="bg-[#1A1A1A]/60 backdrop-blur-xl border border-white/10 rounded-[24px] p-4 group hover:bg-[#252525]/60 transition-all cursor-pointer"
-                    onClick={() => playTrack(track)}
+                    onClick={() => playTrack(track, results)}
                   >
                     <div className="relative aspect-square rounded-[16px] overflow-hidden mb-4">
                       <Image src={track.thumbnail} alt={track.title} fill sizes="280px" className="object-cover group-hover:scale-105 transition-transform duration-500" />
