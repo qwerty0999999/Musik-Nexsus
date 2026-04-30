@@ -108,7 +108,7 @@ export default function Home() {
                 key={i}
                 whileHover={{ y: -10 }}
                 className="min-w-[240px] md:min-w-[280px] snap-start group cursor-pointer"
-                onClick={() => playTrack({ id: `rec_${i}`, ...track } as any)}
+                onClick={() => playTrack(track as any)}
               >
                 <div className="w-full aspect-square rounded-[24px] overflow-hidden relative mb-3 bg-[#1A1A1A]/60 backdrop-blur-2xl border border-white/10">
                   <Image src={track.img} alt={track.title} fill sizes="280px" className="object-cover opacity-80 group-hover:opacity-100 transition-all duration-500" />
