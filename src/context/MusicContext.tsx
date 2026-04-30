@@ -49,26 +49,50 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // Initialize audio once
   useEffect(() => {
-    audioRef.current = new Audio();
+    if (!audioRef.current) {
+      audioRef.current = new Audio();
+    }
     const audio = audioRef.current;
 
     const updateTime = () => setCurrentTime(audio.currentTime);
     const updateDuration = () => setDuration(audio.duration);
     const handleEnded = () => {
+      // Use ref-like access to avoid stale closures if needed, 
+      // but here we'll re-bind or use a stable playNext
+    };
+
+    audio.addEventListener('timeupdate', updateTime);
+    audio.addEventListener('loadedmetadata', updateDuration);
+
+    return () => {
+      audio.removeEventListener('timeupdate', updateTime);
+      audio.removeEventListener('loadedmetadata', updateDuration);
+      audio.pause();
+    };
+  }, []);
+
+  // Separate effect for ended handler to avoid stale state
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const handleEnded = () => {
       if (repeatMode === 'one') {
         audio.currentTime = 0;
-        audio.play();
+        audio.play().catch(() => {});
       } else {
         playNext();
       }
     };
 
-    audio.addEventListener('timeupdate', updateTime);
-    audio.addEventListener('loadedmetadata', updateDuration);
     audio.addEventListener('ended', handleEnded);
+    return () => audio.removeEventListener('ended', handleEnded);
+  }, [repeatMode, queue, shuffledQueue, isShuffle, history, currentTrack]);
 
-    // Media Session API support
+  // Media Session handlers
+  useEffect(() => {
     if ('mediaSession' in navigator) {
       navigator.mediaSession.setActionHandler('play', resumeTrack);
       navigator.mediaSession.setActionHandler('pause', pauseTrack);
@@ -78,15 +102,7 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         if (details.seekTime !== undefined) seekTo(details.seekTime);
       });
     }
-
-    return () => {
-      audio.removeEventListener('timeupdate', updateTime);
-      audio.removeEventListener('loadedmetadata', updateDuration);
-      audio.removeEventListener('ended', handleEnded);
-      audio.pause();
-      audioRef.current = null;
-    };
-  }, [repeatMode, currentTrack, queue, isShuffle]); // Re-bind when state changes that handlers depend on
+  }, [currentTrack, queue, shuffledQueue, isShuffle, history]);
 
   useEffect(() => {
     if (currentTrack && 'mediaSession' in navigator) {
