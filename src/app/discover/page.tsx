@@ -91,7 +91,7 @@ export default function Discover() {
                   fill
                   className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent opacity-90"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-[#0A0A0A] via-transparent to-transparent opacity-90"></div>
                 <div className="absolute inset-0 flex flex-col justify-end p-8">
                   <div className="glass-card rounded-xl p-4 inline-block self-start mb-4">
                     <span className="material-symbols-outlined text-white" style={{ fontVariationSettings: "'FILL' 1", color: `var(--color-${mood.color})` }}>

@@ -82,7 +82,7 @@ export default function Home() {
             className="flex-1 relative w-full flex justify-center items-center z-10 h-full"
           >
             <div className="absolute w-[80%] aspect-square bg-secondary/20 rounded-full blur-[80px] -z-10"></div>
-            <div className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-[24px] overflow-hidden border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rotate-[-2deg] hover:rotate-0 transition-transform duration-500 relative">
+            <div className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-[24px] overflow-hidden border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] -rotate-2 hover:rotate-0 transition-transform duration-500 relative">
               <Image 
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGjoQXmgoT-RBSeFm0FNnLORuRLNyYdj5JS0UVrE8LyeXmXz3161NEaAx7mCCq12OtEvcayho_ue-ikJkQ62uLq9eZSI25uBrbb1Sm9si1DW0juvF22Lxq4mRJPbJdQwUeYldVMP-th88qzSiPcrVw851vHgtV8xS5VPq_3NFKo7P-lsL6ECDqMfFw0HsaRKCtw9H6l_-YiKVh5baXsJVCiiHiWE7A1pQGsNrsctoln20JBaW4Ov5yTYccq8qy1gWBUMzUJHjKuLJ7"
                 alt="Hero Album Cover"
@@ -117,7 +117,7 @@ export default function Home() {
                     fill
                     className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                     <button aria-label={`Play ${track.title}`} className="w-12 h-12 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center shadow-[0_0_20px_rgba(0,226,147,0.5)] transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
                       <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
                     </button>
@@ -147,7 +147,7 @@ export default function Home() {
                 whileHover={{ scale: 1.02 }}
                 className="h-[160px] rounded-[24px] bg-[#1A1A1A]/60 backdrop-blur-[20px] border border-white/10 p-6 flex flex-col justify-end relative overflow-hidden group cursor-pointer hover:shadow-[0_0_30px_rgba(255,255,255,0.05)] transition-shadow"
               >
-                <div className={`absolute inset-0 bg-gradient-to-tr from-${mood.color}/20 to-transparent z-0`} />
+                <div className={`absolute inset-0 bg-linear-to-tr from-${mood.color}/20 to-transparent z-0`} />
                 <span className={`material-symbols-outlined absolute top-6 right-6 text-${mood.color}/50 text-[40px] group-hover:scale-110 transition-transform`}>
                   {mood.icon}
                 </span>
@@ -165,7 +165,7 @@ export default function Home() {
         className="fixed bottom-[90px] md:bottom-6 left-0 right-0 z-40 px-6 max-w-[1000px] mx-auto"
       >
         <Link href="/player">
-          <div className="bg-[#1A1A1A]/80 backdrop-blur-[40px] border border-white/10 rounded-[24px] p-3 flex flex-col gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.8)] cursor-pointer hover:bg-[#252525]/80 transition-colors">
+          <div className="bg-[#1A1A1A]/80 backdrop-blur-2xl border border-white/10 rounded-[24px] p-3 flex flex-col gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.8)] cursor-pointer hover:bg-[#252525]/80 transition-colors">
             <div className="w-full h-1 bg-surface-bright rounded-full overflow-hidden">
               <div className="h-full bg-tertiary w-[45%] rounded-full shadow-[0_0_10px_rgba(0,226,147,0.8)]"></div>
             </div>

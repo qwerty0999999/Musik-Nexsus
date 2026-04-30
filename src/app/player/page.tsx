@@ -23,7 +23,7 @@ export default function Player() {
             <span className="material-symbols-outlined">expand_more</span>
           </button>
         </Link>
-        <div className="font-h3 text-[32px] font-black text-white tracking-tighter uppercase font-h1">PULSE</div>
+        <div className="font-h3 text-[32px] font-black text-white tracking-tighter uppercase">PULSE</div>
         <button aria-label="More options" className="w-12 h-12 flex items-center justify-center rounded-full glass-panel text-white/70 hover:text-tertiary transition-colors">
           <span className="material-symbols-outlined">more_vert</span>
         </button>
@@ -61,7 +61,7 @@ export default function Player() {
 
         {/* Lyrics Snippet */}
         <div className="text-center w-full max-w-md h-24 overflow-hidden mask-image-gradient relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/0 to-background/80 z-10 pointer-events-none"></div>
+          <div className="absolute inset-0 bg-linear-to-b from-transparent via-background/0 to-background/80 z-10 pointer-events-none"></div>
           <motion.div 
             animate={{ y: [0, -40, -80] }}
             transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
@@ -79,11 +79,11 @@ export default function Player() {
         {/* Progress Bar */}
         <div className="w-full flex items-center gap-4 mb-8 px-4">
           <span className="font-label-caps text-[12px] tracking-widest font-semibold text-on-surface-variant w-10 text-right">2:14</span>
-          <div className="flex-grow h-1.5 bg-white/10 rounded-full relative cursor-pointer group">
+          <div className="grow h-1.5 bg-white/10 rounded-full relative cursor-pointer group">
             {/* Buffered */}
             <div className="absolute left-0 top-0 h-full w-3/4 bg-white/20 rounded-full"></div>
             {/* Played */}
-            <div className="absolute left-0 top-0 h-full w-1/2 bg-tertiary rounded-full glow-effect relative">
+            <div className="absolute left-0 top-0 h-full w-1/2 bg-tertiary rounded-full glow-effect">
               {/* Playhead */}
               <div className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-tertiary rounded-full shadow-[0_0_10px_rgba(0,226,147,0.8)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </div>
@@ -102,7 +102,7 @@ export default function Player() {
           
           {/* Play/Pause FAB */}
           <button aria-label="Play/Pause" className="w-20 h-20 rounded-full bg-tertiary-container flex items-center justify-center text-tertiary glow-effect-heavy hover:scale-105 transition-transform border border-tertiary/30 relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-br from-tertiary/20 to-transparent rounded-full pointer-events-none"></div>
+            <div className="absolute inset-0 bg-linear-to-br from-tertiary/20 to-transparent rounded-full pointer-events-none"></div>
             <span className="material-symbols-outlined text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>pause</span>
           </button>
           

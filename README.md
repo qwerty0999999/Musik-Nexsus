@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎵 Musik Nexsus
 
-## Getting Started
+**Musik Nexsus** adalah platform pemutar musik modern berbasis web yang dirancang dengan antarmuka futuristik dan pengalaman pengguna yang imersif. Proyek ini dibangun menggunakan teknologi terbaru untuk memberikan performa yang cepat dan visual yang memukau.
 
-First, run the development server:
+## ✨ Fitur Utama
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Antarmuka Futuristik:** Desain gelap yang elegan dengan efek *ambient glow* dan *glassmorphism*.
+- **Responsive Design:** Pengalaman yang mulus di perangkat mobile maupun desktop.
+- **Immersive Mini Player:** Kontrol musik yang selalu dapat diakses dengan visualisasi progres yang menarik.
+- **Smooth Animations:** Transisi antar halaman dan elemen yang halus menggunakan Framer Motion.
+- **Kategori Berbasis Mood:** Jelajahi musik berdasarkan suasana hati Anda (Chill, Focus, Energy).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Teknologi yang Digunakan
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework:** [Next.js 15+](https://nextjs.org/) (App Router)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Animasi:** [Framer Motion](https://www.framer.com/motion/)
+- **Icons:** [Google Material Symbols](https://fonts.google.com/icons)
+- **Bahasa:** [TypeScript](https://www.typescriptlang.org/)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Cara Instalasi
 
-## Learn More
+1. **Clone repository:**
+   ```bash
+   git clone https://github.com/username/musik-nexsus.git
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Masuk ke direktori proyek:**
+   ```bash
+   cd musik-nexsus
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Instal dependensi:**
+   ```bash
+   npm install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. **Jalankan server pengembangan:**
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+5. Buka [http://localhost:3000](http://localhost:3000) di browser Anda.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📸 Tampilan Proyek
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+*(Saran: Tambahkan screenshot atau GIF demo di sini setelah proyek di-deploy)*
+
+---
+
+Dibuat dengan ❤️ untuk para pecinta musik.
