@@ -49,55 +49,57 @@ export default function Player() {
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 bg-[#0B0F1A] z-[100] p-8 flex flex-col md:flex-row items-center justify-center gap-12"
+            transition={{ type: 'spring', damping: 30, stiffness: 200 }}
+            className="fixed inset-0 bg-[#0B0F1A] z-[100] p-6 md:p-12 flex flex-col items-center justify-center gap-8 md:gap-12"
           >
             <button 
-              onClick={() => setIsFullPlayer(false)}
-              className="absolute top-8 right-8 text-gray-500 hover:text-white transition"
+              onClick={(e) => { e.stopPropagation(); setIsFullPlayer(false); }}
+              className="absolute top-6 md:top-8 right-6 md:right-8 text-gray-500 hover:text-white transition p-2"
             >
-              <SkipBack size={32} className="rotate-[-90deg]" />
+              <SkipBack size={28} className="rotate-[-90deg] md:w-8 md:h-8" />
             </button>
 
-            <div className="absolute inset-0 -z-10 opacity-30 blur-[100px]">
+            <div className="absolute inset-0 -z-10 opacity-40 blur-[120px] scale-150">
                <img src={currentSong.cover} className="w-full h-full object-cover" alt="" />
             </div>
 
             <motion.div 
-              className="w-full max-w-sm aspect-square rounded-3xl overflow-hidden shadow-2xl border border-white/10"
-              animate={isPlaying ? { scale: [1, 1.02, 1] } : {}}
-              transition={{ repeat: Infinity, duration: 4 }}
+              className="w-full max-w-[280px] md:max-w-sm aspect-square rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-white/10"
+              animate={isPlaying ? { scale: [1, 1.03, 1] } : {}}
+              transition={{ repeat: Infinity, duration: 8 }}
             >
               <img src={currentSong.cover} className="w-full h-full object-cover" alt="" />
             </motion.div>
 
-            <div className="w-full max-w-xl">
-               <h1 className="text-white text-4xl md:text-6xl font-bold mb-2">{currentSong.title}</h1>
-               <p className="text-(--primary) text-xl md:text-2xl mb-12">{currentSong.artist}</p>
+            <div className="w-full max-w-xl text-center md:text-left">
+               <h1 className="text-white text-3xl md:text-6xl font-bold mb-1 md:mb-2 truncate">{currentSong.title}</h1>
+               <p className="text-(--primary) text-lg md:text-2xl mb-8 md:mb-12 font-medium truncate">{currentSong.artist}</p>
 
-               <div className="space-y-6">
-                  <div className="w-full h-2 bg-white/10 rounded-full relative overflow-hidden">
-                    <motion.div 
-                      className="absolute inset-y-0 left-0 bg-linear-to-r from-(--primary) to-(--accent)"
-                      animate={{ width: `${progress}%` }}
-                    />
-                  </div>
-                  <div className="flex justify-between text-gray-500 text-sm">
-                    <span>0:00</span>
-                    <span>3:45</span>
+               <div className="space-y-6 md:space-y-8">
+                  <div className="space-y-2">
+                    <div className="w-full h-1.5 md:h-2 bg-white/10 rounded-full relative overflow-hidden">
+                      <motion.div 
+                        className="absolute inset-y-0 left-0 bg-linear-to-r from-(--primary) to-(--accent)"
+                        animate={{ width: `${progress}%` }}
+                      />
+                    </div>
+                    <div className="flex justify-between text-gray-500 text-[10px] md:text-sm font-medium">
+                      <span>0:00</span>
+                      <span>3:45</span>
+                    </div>
                   </div>
 
-                  <div className="flex items-center justify-center gap-12 text-white">
-                    <Shuffle size={28} className="text-gray-500 hover:text-(--primary) cursor-pointer" />
-                    <SkipBack size={40} className="cursor-pointer hover:text-(--primary)" />
+                  <div className="flex items-center justify-center gap-8 md:gap-12 text-white">
+                    <Shuffle size={24} className="text-gray-500 hover:text-(--primary) cursor-pointer hidden sm:block" />
+                    <SkipBack size={32} className="cursor-pointer hover:text-(--primary) md:w-12 md:h-12" />
                     <button 
                       onClick={togglePlay}
-                      className="w-20 h-20 bg-white rounded-full flex items-center justify-center text-black hover:scale-110 transition shadow-xl"
+                      className="w-16 h-16 md:w-24 md:h-24 bg-white rounded-full flex items-center justify-center text-black hover:scale-105 transition shadow-2xl active:scale-95"
                     >
-                      {isPlaying ? <Pause fill="currentColor" size={32} /> : <Play fill="currentColor" size={32} className="ml-1" />}
+                      {isPlaying ? <Pause fill="currentColor" size={28} className="md:w-10 md:h-10" /> : <Play fill="currentColor" size={28} className="md:w-10 md:h-10 ml-1" />}
                     </button>
-                    <SkipForward size={40} className="cursor-pointer hover:text-(--primary)" />
-                    <Repeat size={28} className="text-gray-500 hover:text-(--primary) cursor-pointer" />
+                    <SkipForward size={32} className="cursor-pointer hover:text-(--primary) md:w-12 md:h-12" />
+                    <Repeat size={24} className="text-gray-500 hover:text-(--primary) cursor-pointer hidden sm:block" />
                   </div>
                </div>
             </div>
