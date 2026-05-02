@@ -49,3 +49,8 @@
 ---
 
 Dibuat dengan ❤️ untuk para pecinta musik.
+
+**Editor Setup**
+- **Tailwind IntelliSense:** Install the "Tailwind CSS IntelliSense" extension in VS Code for class name suggestions and autocompletion.
+- **VS Code settings:** Workspace settings were added at [.vscode/settings.json](.vscode/settings.json#L1) to ignore Tailwind-specific at-rule warnings in the editor.
+
