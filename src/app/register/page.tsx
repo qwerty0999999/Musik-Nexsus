@@ -39,7 +39,7 @@ export default function Register() {
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/login`,
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
         }
       })
 
@@ -50,12 +50,25 @@ export default function Register() {
       }
 
       setSuccess(true)
-      // Redirect setelah beberapa detik
       setTimeout(() => router.push('/login'), 3000)
     } catch (error: any) {
       setErrorMsg(error.message)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleGoogleLogin = async () => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      })
+      if (error) throw error
+    } catch (error: any) {
+      setErrorMsg(error.message || 'Gagal login dengan Google.')
     }
   }
 
@@ -133,6 +146,19 @@ export default function Register() {
             ) : 'Buat Akun Sekarang'}
           </Button>
         </form>
+
+        <div className="relative my-8">
+          <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/10"></div></div>
+          <div className="relative flex justify-center text-xs uppercase"><span className="bg-[#0B0F1A] px-2 text-gray-500">Atau daftar dengan</span></div>
+        </div>
+
+        <button 
+          onClick={handleGoogleLogin}
+          className="w-full flex items-center justify-center gap-3 py-3.5 rounded-xl bg-white text-black font-bold hover:bg-gray-100 transition shadow-lg active:scale-95"
+        >
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5" />
+          <span>Google</span>
+        </button>
 
         <p className="text-center text-gray-400 mt-8 text-sm">
           Sudah punya akun?{' '}
