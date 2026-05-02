@@ -9,6 +9,7 @@ export interface Track {
   thumbnail: string;
   url: string;
   duration?: string;
+  source?: string;
 }
 
 interface MusicContextType {
@@ -142,11 +143,12 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const playTrack = (track: Track, newQueue?: Track[]) => {
+    if (!track) return;
     if (audioRef.current) {
       if (currentTrack && currentTrack.id !== track.id) {
         setHistory(prev => [currentTrack, ...prev.slice(0, 10)]);
       }
-      
+
       if (newQueue) {
         setQueue(newQueue);
         if (isShuffle) {
@@ -155,17 +157,32 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         }
       }
 
-      audioRef.current.src = `/api/stream?url=${encodeURIComponent(track.url)}`;
-      
+      // Determine playable stream URL. Prefer explicit track.url, otherwise fall back to YouTube watch URL using id.
+      let streamSrc: string | null = null;
+      if (track.url && typeof track.url === 'string' && track.url.trim()) {
+        streamSrc = track.url;
+      } else if (track.id) {
+        streamSrc = `https://www.youtube.com/watch?v=${track.id}`;
+      }
+
+      if (!streamSrc) {
+        console.warn('No playable URL for track', track);
+        setCurrentTrack(track);
+        setIsPlaying(false);
+        return;
+      }
+
+      audioRef.current.src = `/api/stream?url=${encodeURIComponent(streamSrc)}`;
+
       const playPromise = audioRef.current.play();
       if (playPromise !== undefined) {
         playPromise.catch(err => {
           if (err.name !== 'AbortError') {
-            console.error("Playback failed:", err);
+            console.error('Playback failed:', err);
           }
         });
       }
-      
+
       setCurrentTrack(track);
       setIsPlaying(true);
     }

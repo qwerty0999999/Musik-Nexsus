@@ -15,6 +15,7 @@ interface SearchResult {
   thumbnail: string;
   duration: string;
   url: string;
+  source?: string;
 }
 
 function DiscoverContent() {
@@ -89,26 +90,46 @@ function DiscoverContent() {
             <motion.section key="results" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
               <h2 className="text-on-surface font-h3">Search Results</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {results.map((track, i) => (
+                {results.map((track, i) => {
+                  const isPlayable = !!((track.url && track.url.trim()) || track.id);
+                  return (
                   <motion.div 
                     key={track.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
-                    className="bg-[#1A1A1A]/60 backdrop-blur-xl border border-white/10 rounded-[24px] p-4 group hover:bg-[#252525]/60 transition-all cursor-pointer"
-                    onClick={() => playTrack(track, results)}
+                    className={`bg-[#1A1A1A]/60 backdrop-blur-xl border border-white/10 rounded-[24px] p-4 group transition-all ${isPlayable ? 'hover:bg-[#252525]/60 cursor-pointer' : 'opacity-70 grayscale cursor-not-allowed'}`}
+                    onClick={() => { if (isPlayable) playTrack(track, results); }}
+                    title={isPlayable ? undefined : 'No preview available'}
+                    aria-disabled={!isPlayable}
                   >
                     <div className="relative aspect-square rounded-[16px] overflow-hidden mb-4">
                       <Image src={track.thumbnail} alt={track.title} fill sizes="280px" className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <div className="w-14 h-14 rounded-full bg-tertiary text-black flex items-center justify-center shadow-lg">
-                          <span className="material-symbols-outlined text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>
-                            {currentTrack?.id === track.id && isPlaying ? 'pause' : 'play_arrow'}
-                          </span>
-                        </div>
+                      <div className="absolute top-3 left-3 z-20">
+                        {track.source && (
+                          <div className="px-2 py-1 rounded-full text-xs bg-black/60 text-white/90">{track.source}</div>
+                        )}
                       </div>
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        {isPlayable ? (
+                          <div className="w-14 h-14 rounded-full bg-tertiary text-black flex items-center justify-center shadow-lg">
+                            <span className="material-symbols-outlined text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>
+                              {currentTrack?.id === track.id && isPlaying ? 'pause' : 'play_arrow'}
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col items-center gap-1 text-center">
+                            <div className="w-12 h-12 rounded-full bg-black/70 text-white flex items-center justify-center shadow">
+                              <span className="material-symbols-outlined">block</span>
+                            </div>
+                            <div className="text-xs text-white/80">Unavailable</div>
+                          </div>
+                        )}
+                      </div>
+                      <div className="absolute right-3 bottom-3 px-2 py-1 rounded-md bg-black/60 text-xs text-white">{track.duration}</div>
                     </div>
                     <h4 className="text-white font-bold truncate mb-1">{track.title}</h4>
                     <p className="text-on-surface-variant text-sm truncate">{track.artist}</p>
                   </motion.div>
-                ))}
+                  );
+                })}
               </div>
             </motion.section>
           ) : (
