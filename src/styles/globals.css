@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0B0F1A;
+  --card: #121826;
+  --primary: #7C5CFF;
+  --accent: #00E5FF;
+  --text: #FFFFFF;
+  --muted: #A0A7B8;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}

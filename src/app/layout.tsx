@@ -1,45 +1,30 @@
-import type { Metadata } from "next";
-import { Space_Grotesk, Manrope } from "next/font/google";
-import "./globals.css";
+import '@/styles/globals.css'
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-});
-
-const manrope = Manrope({
-  subsets: ["latin"],
-  variable: "--font-manrope",
-});
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: "Pulse Music",
-  description: "Feel the beat of the future",
-};
-
-import { MusicProvider } from "@/context/MusicContext";
+  title: 'Musik Nexsus',
+  description: 'Futuristic Music Streaming Platform',
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en" className="dark">
-      <head>
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        />
-      </head>
-      <body
-        className={`${spaceGrotesk.variable} ${manrope.variable} antialiased`}
-      >
-        <MusicProvider>
-          {children}
-        </MusicProvider>
+      <body className={`${inter.className} bg-[#0B0F1A] text-white selection:bg-[var(--primary)] selection:text-white`}>
+        {/* Animated Background Gradients */}
+        <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+          <div className="absolute w-[800px] h-[800px] bg-[var(--primary)] opacity-[0.15] blur-[150px] rounded-full -top-1/4 -left-1/4 animate-pulse" />
+          <div className="absolute w-[600px] h-[600px] bg-[var(--accent)] opacity-[0.1] blur-[120px] rounded-full -bottom-1/4 -right-1/4 animate-pulse" style={{ animationDelay: '2s' }} />
+        </div>
+        
+        {children}
       </body>
     </html>
-  );
+  )
 }
