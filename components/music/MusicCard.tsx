@@ -55,5 +55,3 @@ export default function MusicCard({ song }: any) {
     </motion.div>
   )
 }
-
-
