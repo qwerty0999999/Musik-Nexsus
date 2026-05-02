@@ -41,8 +41,11 @@ function DiscoverContent() {
   useEffect(() => {
     const q = searchParams.get('q');
     if (q) {
-      setSearchQuery(q);
-      handleSearch(q);
+      // Run search in an async callback to avoid calling setState synchronously
+      const run = async () => {
+        await handleSearch(q);
+      };
+      void run();
     }
   }, [searchParams]);
 

@@ -1,6 +1,8 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
+:root {
   --color-outline: #8e9192;
   --color-secondary-fixed-dim: #dfb7ff;
   --color-error-container: #93000a;
