@@ -172,7 +172,9 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         return;
       }
 
-      audioRef.current.src = `/api/stream?url=${encodeURIComponent(streamSrc)}`;
+      // Since backend APIs have been removed, use the streamSrc directly in the client.
+      // If you later restore a server proxy, change this back to `/api/stream?url=...`
+      audioRef.current.src = streamSrc;
 
       const playPromise = audioRef.current.play();
       if (playPromise !== undefined) {

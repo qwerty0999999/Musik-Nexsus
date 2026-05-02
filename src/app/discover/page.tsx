@@ -23,6 +23,7 @@ function DiscoverContent() {
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [backendRemoved, setBackendRemoved] = useState(false);
   const { playTrack, currentTrack, isPlaying, togglePlay } = useMusic();
 
   const handleSearch = async (query: string) => {
@@ -30,10 +31,17 @@ function DiscoverContent() {
     setIsLoading(true);
     try {
       const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
-      const data = await response.json();
-      setResults(data);
+      if (!response.ok) {
+        // Backend API likely removed — switch to demo mode
+        setBackendRemoved(true);
+        setResults([]);
+      } else {
+        const data = await response.json();
+        setResults(data);
+      }
     } catch (error) {
       console.error('Search failed:', error);
+      setBackendRemoved(true);
     } finally {
       setIsLoading(false);
     }
@@ -85,6 +93,9 @@ function DiscoverContent() {
       </header>
 
       <main className="pt-28 px-4 md:px-10 max-w-7xl mx-auto">
+        {backendRemoved && (
+          <div className="max-w-7xl mx-auto px-4 py-3 bg-yellow-600 text-black rounded-md mb-4">Backend API removed — search/playback using server is disabled. UI is in demo mode.</div>
+        )}
         <AnimatePresence mode="wait">
           {results.length > 0 ? (
             <motion.section key="results" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
