@@ -29,7 +29,7 @@ export default function MusicCard({ song }: any) {
       whileTap={{ scale: 0.95 }}
       className="group"
     >
-      <Card className="relative overflow-hidden !p-3 md:!p-4">
+      <Card className="relative overflow-hidden p-3! md:p-4!">
         <div className="relative aspect-square mb-3 overflow-hidden rounded-lg md:rounded-xl">
           <img 
             src={song.cover || 'https://via.placeholder.com/300'} 

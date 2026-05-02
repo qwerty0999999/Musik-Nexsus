@@ -50,13 +50,13 @@ export default function Player() {
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 200 }}
-            className="fixed inset-0 bg-[#0B0F1A] z-[100] p-6 md:p-12 flex flex-col items-center justify-center gap-8 md:gap-12"
+            className="fixed inset-0 bg-[#0B0F1A] z-100 p-6 md:p-12 flex flex-col items-center justify-center gap-8 md:gap-12"
           >
             <button 
               onClick={(e) => { e.stopPropagation(); setIsFullPlayer(false); }}
               className="absolute top-6 md:top-8 right-6 md:right-8 text-gray-500 hover:text-white transition p-2"
             >
-              <SkipBack size={28} className="rotate-[-90deg] md:w-8 md:h-8" />
+              <SkipBack size={28} className="-rotate-90 md:w-8 md:h-8" />
             </button>
 
             <div className="absolute inset-0 -z-10 opacity-40 blur-[120px] scale-150">
