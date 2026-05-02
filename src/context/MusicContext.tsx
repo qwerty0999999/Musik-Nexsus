@@ -20,6 +20,7 @@ interface MusicContextType {
   volume: number;
   repeatMode: 'none' | 'one' | 'all';
   isShuffle: boolean;
+  audioRef: React.RefObject<HTMLAudioElement | null>;
   playTrack: (track: Track, newQueue?: Track[]) => void;
   pauseTrack: () => void;
   resumeTrack: () => void;
@@ -246,6 +247,7 @@ export const MusicProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       volume,
       repeatMode,
       isShuffle,
+      audioRef,
       playTrack, 
       pauseTrack, 
       resumeTrack, 

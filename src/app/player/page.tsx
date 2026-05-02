@@ -5,15 +5,17 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useMusic } from '@/context/MusicContext';
+import AudioVisualizer from '@/components/AudioVisualizer';
 
 export default function Player() {
   const { 
     currentTrack, isPlaying, togglePlay, playNext, playPrevious, 
     currentTime, duration, seekTo, isShuffle, setIsShuffle, 
-    repeatMode, setRepeatMode, volume, setVolume 
+    repeatMode, setRepeatMode, volume, setVolume, audioRef, queue, playTrack
   } = useMusic();
 
   const [showVolume, setShowVolume] = useState(false);
+  const [showQueue, setShowQueue] = useState(false);
 
   const formatTime = (time: number) => {
     if (isNaN(time)) return "0:00";
@@ -103,6 +105,11 @@ export default function Player() {
           </div>
         </div>
 
+        {/* Audio Visualizer */}
+        <div className="w-full max-w-2xl px-6 mb-8">
+          <AudioVisualizer audioRef={audioRef} isPlaying={isPlaying} />
+        </div>
+
         <div className="text-center mb-8 flex flex-col items-center max-w-lg w-full px-4">
           <motion.h1 
             key={currentTrack.id} initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
@@ -176,6 +183,56 @@ export default function Player() {
           </button>
         </div>
       </div>
+
+      {/* Queue Drawer Button (Floating) */}
+      <button 
+        onClick={() => setShowQueue(true)}
+        className="fixed bottom-32 right-6 z-40 w-14 h-14 rounded-full glass-panel flex items-center justify-center text-white/70 hover:text-tertiary transition-all hover:scale-110 shadow-2xl md:bottom-10 md:right-10"
+      >
+        <span className="material-symbols-outlined text-3xl">queue_music</span>
+      </button>
+
+      {/* Queue Drawer */}
+      {showQueue && (
+        <motion.div 
+          initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
+          className="fixed inset-y-0 right-0 z-[60] w-full max-w-md bg-[#141313]/95 backdrop-blur-3xl border-l border-white/10 shadow-2xl p-8 flex flex-col"
+        >
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl font-black tracking-widest uppercase">UP NEXT</h2>
+            <button onClick={() => setShowQueue(false)} className="w-10 h-10 rounded-full glass-panel flex items-center justify-center">
+              <span className="material-symbols-outlined">close</span>
+            </button>
+          </div>
+
+          <div className="flex-1 overflow-y-auto scrollbar-hide flex flex-col gap-4">
+            {queue.length === 0 ? (
+              <div className="flex flex-col items-center justify-center h-full opacity-30">
+                <span className="material-symbols-outlined text-6xl mb-4">playlist_remove</span>
+                <p className="font-bold">Queue is empty</p>
+              </div>
+            ) : (
+              queue.map((track, i) => (
+                <motion.div 
+                  key={`${track.id}-${i}`}
+                  initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}
+                  onClick={() => playTrack(track)}
+                  className="flex items-center gap-4 p-3 rounded-2xl hover:bg-white/5 transition-colors cursor-pointer group"
+                >
+                  <div className="w-14 h-14 rounded-lg overflow-hidden relative shrink-0">
+                    <Image src={track.thumbnail} alt={track.title} fill sizes="56px" className="object-cover" />
+                  </div>
+                  <div className="flex flex-col flex-1 truncate">
+                    <span className="font-bold text-on-surface truncate group-hover:text-tertiary transition-colors">{track.title}</span>
+                    <span className="text-on-surface-variant text-sm truncate">{track.artist}</span>
+                  </div>
+                  <span className="material-symbols-outlined text-white/20 group-hover:text-tertiary transition-colors">play_circle</span>
+                </motion.div>
+              ))
+            )}
+          </div>
+        </motion.div>
+      )}
     </div>
   );
 }
