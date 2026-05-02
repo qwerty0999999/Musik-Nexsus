@@ -1,6 +1,38 @@
 import { NextResponse } from 'next/server';
 import YTMusic from 'ytmusic-api';
 
+// Spotify client credentials caching
+let spotifyToken: string | null = null;
+let spotifyTokenExpiry = 0;
+
+async function getSpotifyToken() {
+  const now = Date.now();
+  if (spotifyToken && spotifyTokenExpiry > now) return spotifyToken;
+
+  const clientId = process.env.SPOTIFY_CLIENT_ID;
+  const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
+  if (!clientId || !clientSecret) return null;
+
+  const resp = await fetch('https://accounts.spotify.com/api/token', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Basic ' + Buffer.from(`${clientId}:${clientSecret}`).toString('base64'),
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: 'grant_type=client_credentials'
+  });
+
+  if (!resp.ok) {
+    const txt = await resp.text();
+    throw new Error(`Spotify token request failed: ${txt}`);
+  }
+
+  const data = await resp.json();
+  spotifyToken = data.access_token;
+  spotifyTokenExpiry = now + (data.expires_in ? data.expires_in * 1000 : 3500 * 1000);
+  return spotifyToken;
+}
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get('q');
@@ -10,6 +42,51 @@ export async function GET(request: Request) {
   }
 
   try {
+    // First attempt: Spotify search (client credentials)
+    try {
+      const token = await getSpotifyToken();
+      if (token) {
+        const sresp = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=12`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+
+        if (sresp.ok) {
+          const sjson = await sresp.json();
+          const spotifyTracks = (sjson.tracks?.items || []).map((t: any) => ({
+            id: t.id,
+            title: t.name,
+            artist: (t.artists || []).map((a: any) => a.name).join(', '),
+            thumbnail: t.album?.images?.[0]?.url || '',
+            duration: formatDuration(t.duration_ms),
+            url: t.preview_url || t.external_urls?.spotify || null,
+            source: 'spotify',
+            album: t.album?.name ?? null,
+            explicit: !!t.explicit
+          }));
+
+          // Prefer Spotify tracks that have preview_url (playable)
+          const playable = spotifyTracks.filter((t: any) => t.url && t.url.startsWith('http'));
+          if (playable.length) {
+            return NextResponse.json(playable);
+          }
+          // otherwise, keep spotifyTracks as candidate fallback but continue to YouTube search
+          if (spotifyTracks.length) {
+            results = spotifyTracks.map((s: any) => ({
+              id: s.id,
+              title: s.title,
+              artist: s.artist,
+              thumbnail: s.thumbnail,
+              duration: s.duration,
+              url: s.url,
+              album: s.album,
+              explicit: s.explicit,
+            }));
+          }
+        }
+      }
+    } catch (spErr) {
+      console.warn('Spotify search failed:', spErr);
+    }
     const ytmusic = new YTMusic();
     // initialize may be no-op for some versions; keep for compatibility
     if (typeof ytmusic.initialize === 'function') await ytmusic.initialize();

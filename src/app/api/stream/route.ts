@@ -57,6 +57,20 @@ export async function GET(request: Request) {
       });
     }
 
+    // Generic HTTP audio proxy: allow streaming of remote audio files (e.g., Spotify preview URLs)
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      const resp = await fetch(url);
+      if (!resp.ok) throw new Error(`Remote audio fetch failed: ${resp.status} ${resp.statusText}`);
+
+      const contentType = resp.headers.get('content-type') || 'audio/mpeg';
+      return new Response(resp.body, {
+        headers: {
+          'Content-Type': contentType,
+          'Cache-Control': 'public, max-age=31536000'
+        }
+      });
+    }
+
     return new Response(JSON.stringify({ error: 'Unsupported stream source' }), { status: 400 });
   } catch (error: any) {
     console.error('Critical Stream Error:', error);
