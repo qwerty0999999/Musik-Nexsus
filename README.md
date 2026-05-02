@@ -1,24 +1,41 @@
-# 🎵 Musik Nexsus
+# 🎵 Musik Nexsus (Pulse)
 
-**Musik Nexsus** adalah platform pemutar musik modern berbasis web yang dirancang dengan antarmuka futuristik dan pengalaman pengguna yang imersif. Proyek ini dibangun menggunakan teknologi terbaru untuk memberikan performa yang cepat dan visual yang memukau.
+**Musik Nexsus** (atau dikenal sebagai **Pulse**) adalah platform pemutar musik modern berbasis web yang dirancang dengan antarmuka futuristik, performa tinggi, dan pengalaman pengguna yang imersif. Proyek ini mengintegrasikan berbagai sumber musik seperti YouTube dan Spotify ke dalam satu antarmuka yang elegan.
 
 ## ✨ Fitur Utama
 
-- **Antarmuka Futuristik:** Desain gelap yang elegan dengan efek *ambient glow* dan *glassmorphism*.
-- **Responsive Design:** Pengalaman yang mulus di perangkat mobile maupun desktop.
-- **Immersive Mini Player:** Kontrol musik yang selalu dapat diakses dengan visualisasi progres yang menarik.
-- **Smooth Animations:** Transisi antar halaman dan elemen yang halus menggunakan Framer Motion.
-- **Kategori Berbasis Mood:** Jelajahi musik berdasarkan suasana hati Anda (Chill, Focus, Energy).
+- **Antarmuka Futuristik (PULSE UI):** Desain gelap yang elegan dengan efek *ambient glow*, *glassmorphism*, dan elemen visual modern (Material Design 3 influenced).
+- **Pencarian Multi-Platform:** Cari lagu favorit Anda secara bersamaan dari YouTube Music dan Spotify.
+- **Audio Visualizer Real-time:** Visualisasi spektrum audio yang interaktif menggunakan Web Audio API saat musik diputar.
+- **Streaming Tanpa Batas:** Sistem proxy streaming yang dioptimalkan untuk mendukung berbagai sumber audio (YouTube, Jamendo, Spotify Previews).
+- **Responsive & Seamless:** Pengalaman yang mulus di perangkat mobile maupun desktop dengan animasi transisi yang halus menggunakan Framer Motion.
+- **Immersive Mini Player:** Kontrol musik yang selalu dapat diakses dengan visualisasi progres yang menarik di setiap halaman.
 
 ## 🚀 Teknologi yang Digunakan
 
-- **Framework:** [Next.js 15+](https://nextjs.org/) (App Router)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Framework:** [Next.js 16 (Canary)](https://nextjs.org/) (App Router)
+- **Styling:** [Tailwind CSS 4](https://tailwindcss.com/)
 - **Animasi:** [Framer Motion](https://www.framer.com/motion/)
-- **Icons:** [Google Material Symbols](https://fonts.google.com/icons)
+- **Database & Auth:** [Supabase](https://supabase.com/)
+- **Audio Engine:** Web Audio API & `play-dl` untuk streaming YouTube.
+- **Integrasi API:** Spotify API & YouTube Music API (`ytmusic-api`).
 - **Bahasa:** [TypeScript](https://www.typescriptlang.org/)
 
-## 🛠️ Cara Instalasi
+## 🛠️ Persiapan Lingkungan
+
+Sebelum menjalankan proyek, pastikan Anda telah menyiapkan variabel lingkungan berikut di file `.env.local`. Anda bisa menyalin contoh dari `.env.example`:
+
+```env
+# Spotify API
+SPOTIFY_CLIENT_ID=your_spotify_client_id
+SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
+
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+## 📦 Instalasi & Pengembangan
 
 1. **Clone repository:**
    ```bash
@@ -42,15 +59,18 @@
 
 5. Buka [http://localhost:3000](http://localhost:3000) di browser Anda.
 
-## 📸 Tampilan Proyek
+## 📂 Struktur Proyek
 
-*(Saran: Tambahkan screenshot atau GIF demo di sini setelah proyek di-deploy)*
+- `src/app`: Routing dan halaman utama (Home, Discover, Player).
+- `src/components`: Komponen UI modular (Visualizer, NavBar, dll).
+- `src/context`: State management global untuk kontrol musik.
+- `src/lib`: Logika integrasi API (Spotify, YouTube, Supabase).
+- `src/types`: Definisi tipe data TypeScript untuk konsistensi kode.
 
 ---
 
 Dibuat dengan ❤️ untuk para pecinta musik.
 
 **Editor Setup**
-- **Tailwind IntelliSense:** Install the "Tailwind CSS IntelliSense" extension in VS Code for class name suggestions and autocompletion.
-- **VS Code settings:** Workspace settings were added at [.vscode/settings.json](.vscode/settings.json#L1) to ignore Tailwind-specific at-rule warnings in the editor.
-
+- **Tailwind IntelliSense:** Gunakan ekstensi "Tailwind CSS IntelliSense" di VS Code untuk saran class name.
+- **VS Code settings:** Pengaturan workspace otomatis tersedia di `.vscode/settings.json` untuk kenyamanan pengembangan.

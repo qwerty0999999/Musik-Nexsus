@@ -1,37 +1,8 @@
 import { NextResponse } from 'next/server';
-import YTMusic from 'ytmusic-api';
-
-// Spotify client credentials caching
-let spotifyToken: string | null = null;
-let spotifyTokenExpiry = 0;
-
-async function getSpotifyToken() {
-  const now = Date.now();
-  if (spotifyToken && spotifyTokenExpiry > now) return spotifyToken;
-
-  const clientId = process.env.SPOTIFY_CLIENT_ID;
-  const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
-  if (!clientId || !clientSecret) return null;
-
-  const resp = await fetch('https://accounts.spotify.com/api/token', {
-    method: 'POST',
-    headers: {
-      Authorization: 'Basic ' + Buffer.from(`${clientId}:${clientSecret}`).toString('base64'),
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: 'grant_type=client_credentials'
-  });
-
-  if (!resp.ok) {
-    const txt = await resp.text();
-    throw new Error(`Spotify token request failed: ${txt}`);
-  }
-
-  const data = await resp.json();
-  spotifyToken = data.access_token;
-  spotifyTokenExpiry = now + (data.expires_in ? data.expires_in * 1000 : 3500 * 1000);
-  return spotifyToken;
-}
+import { searchSpotify } from '@/lib/music/spotify';
+import { searchYouTube } from '@/lib/music/youtube';
+import { ensureConfig, tryEnsureConfig } from '@/lib/config';
+import { checkRateLimit } from '@/lib/rateLimiter';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -42,110 +13,34 @@ export async function GET(request: Request) {
   }
 
   try {
-    // First attempt: Spotify search (client credentials)
+    // Validate config (warn in non-critical environments)
+    tryEnsureConfig();
+
+    // Rate limit (throw if exceeded)
     try {
-      const token = await getSpotifyToken();
-      if (token) {
-        const sresp = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=12`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-
-        if (sresp.ok) {
-          const sjson = await sresp.json();
-          const spotifyTracks = (sjson.tracks?.items || []).map((t: any) => ({
-            id: t.id,
-            title: t.name,
-            artist: (t.artists || []).map((a: any) => a.name).join(', '),
-            thumbnail: t.album?.images?.[0]?.url || '',
-            duration: formatDuration(t.duration_ms),
-            url: t.preview_url || t.external_urls?.spotify || null,
-            source: 'spotify',
-            album: t.album?.name ?? null,
-            explicit: !!t.explicit
-          }));
-
-          // Prefer Spotify tracks that have preview_url (playable)
-          const playable = spotifyTracks.filter((t: any) => t.url && t.url.startsWith('http'));
-          if (playable.length) {
-            return NextResponse.json(playable);
-          }
-          // otherwise, keep spotifyTracks as candidate fallback but continue to YouTube search
-          if (spotifyTracks.length) {
-            results = spotifyTracks.map((s: any) => ({
-              id: s.id,
-              title: s.title,
-              artist: s.artist,
-              thumbnail: s.thumbnail,
-              duration: s.duration,
-              url: s.url,
-              album: s.album,
-              explicit: s.explicit,
-            }));
-          }
-        }
-      }
-    } catch (spErr) {
-      console.warn('Spotify search failed:', spErr);
+      checkRateLimit(request, 40, 60_000);
+    } catch (rlErr: any) {
+      return NextResponse.json({ error: 'Rate limit exceeded', retryAfter: rlErr.retryAfter ?? 60 }, { status: 429 });
     }
-    const ytmusic = new YTMusic();
-    // initialize may be no-op for some versions; keep for compatibility
-    if (typeof ytmusic.initialize === 'function') await ytmusic.initialize();
-
-    // Try to fetch song-only results; different versions expose different helpers
-    let results: any[] = [];
-    if (typeof (ytmusic as any).search === 'function') {
-      // many ytmusic-api versions support search(query, 'songs')
-      try {
-        const r = await (ytmusic as any).search(query, 'songs');
-        // Some versions return { songs: [...] }
-        results = Array.isArray(r) ? r : r?.songs ?? r?.results ?? [];
-      } catch (e) {
-        // fallback below
-      }
-    }
-
-    if (!results.length && typeof (ytmusic as any).searchSongs === 'function') {
-      results = await (ytmusic as any).searchSongs(query);
-    }
-
-    // last-resort: generic search
-    if (!results.length && typeof (ytmusic as any).searchAll === 'function') {
-      const r = await (ytmusic as any).searchAll(query);
-      results = r?.songs ?? r?.results ?? [];
-    }
-
-    const formattedResults = (results || []).map((song: any) => {
-      const videoId = song.videoId || song.id || song.video_id || song.youtube_id;
-      const title = song.name || song.title || song.song || '';
-
-      // artist can be an object or an array
-      let artist = 'Unknown';
-      if (song.artist) artist = typeof song.artist === 'string' ? song.artist : song.artist.name ?? artist;
-      else if (Array.isArray(song.artists)) artist = song.artists.map((a: any) => a.name || a).join(', ');
-
-      const thumbnails = song.thumbnails || song.thumbnail || [];
-      const thumbnail = Array.isArray(thumbnails) && thumbnails.length
-        ? thumbnails[thumbnails.length - 1]?.url || thumbnails[thumbnails.length - 1]?.url
-        : (thumbnails?.url || '');
-
-      const durationRaw = song.duration ?? song.length ?? song.durationMs ?? song.duration_seconds ?? null;
-      const duration = formatDuration(durationRaw);
-
-      const url = videoId ? `https://www.youtube.com/watch?v=${videoId}` : song.url || '';
-
-      return {
-        id: videoId || null,
-        title,
-        artist,
-        thumbnail,
-        duration,
-        url,
-        album: song.album?.name ?? song.album ?? null,
-        explicit: !!song.explicit,
-      };
+    // Try Spotify first
+    const spotifyResults = await searchSpotify(query, 12).catch((e) => {
+      console.warn('Spotify helper error:', e);
+      return [] as any[];
     });
 
-    return NextResponse.json(formattedResults);
+    // If Spotify returned playable preview URLs, return them directly
+    const playable = spotifyResults.filter((t: any) => t.url && typeof t.url === 'string' && t.url.startsWith('http'));
+    if (playable.length) return NextResponse.json(playable);
+
+    // Otherwise fallback to YouTube search and merge results (YouTube prioritized)
+    const ytResults = await searchYouTube(query, 24).catch((e) => {
+      console.warn('YouTube helper error:', e);
+      return [] as any[];
+    });
+
+    // If we have some YouTube results, return those; otherwise return Spotify candidates
+    const finalResults = ytResults.length ? ytResults : spotifyResults;
+    return NextResponse.json(finalResults);
   } catch (error: any) {
     console.error('Search error:', error);
     return NextResponse.json({ 
