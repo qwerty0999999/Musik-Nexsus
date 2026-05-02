@@ -6,15 +6,40 @@ import Container from '@/components/ui/Container'
 import MobileNav from '@/components/layout/MobileNav'
 import Player from '@/components/music/Player'
 import ActivityFeed from '@/components/social/ActivityFeed'
+import useUser from '@/hooks/useUser'
 import { motion } from 'framer-motion'
-import { Heart, Play, Clock, MoreHorizontal } from 'lucide-react'
+import { Heart, Play, Clock, MoreHorizontal, LogIn } from 'lucide-react'
+import Link from 'next/link'
+import Button from '@/components/ui/Button'
 
 export default function LikedSongsPage() {
+  const user = useUser()
+  
   const songs = [
     { id: 1, title: 'Summer Memories', artist: 'Sunny Day', duration: '3:45', cover: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=100&h=100&fit=crop' },
     { id: 2, title: 'Neon Lights', artist: 'Cyber City', duration: '4:12', cover: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=100&h=100&fit=crop' },
     { id: 3, title: 'Forest Rain', artist: 'Zen Nature', duration: '5:30', cover: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=100&h=100&fit=crop' },
   ]
+
+  if (user === null) {
+    return (
+      <div className="flex min-h-screen">
+        <Sidebar />
+        <main className="flex-1 flex flex-col items-center justify-center p-8 bg-transparent pb-32">
+           <div className="w-24 h-24 bg-white/5 rounded-full flex items-center justify-center mb-6 text-(--primary)">
+              <Heart size={48} fill="currentColor" />
+           </div>
+           <h1 className="text-white text-3xl font-bold mb-2">Lagu Disukai</h1>
+           <p className="text-gray-400 text-center max-w-sm mb-8">Masuk untuk melihat semua lagu yang pernah kamu beri tanda suka.</p>
+           <Link href="/login">
+              <Button className="px-10 py-4 font-bold">Masuk Sekarang</Button>
+           </Link>
+        </main>
+        <MobileNav />
+        <Player />
+      </div>
+    )
+  }
 
   return (
     <div className="flex min-h-screen">
@@ -34,7 +59,7 @@ export default function LikedSongsPage() {
                   <p className="text-white text-sm font-bold uppercase tracking-wider mb-2">Playlist</p>
                   <h1 className="text-white text-5xl md:text-7xl font-bold mb-6">Lagu Disukai</h1>
                   <div className="flex items-center gap-2 text-white/70 text-sm">
-                    <span className="font-bold text-white">Rijalul Fikri</span>
+                    <span className="font-bold text-white">{user?.email?.split('@')[0]}</span>
                     <span>• 124 Lagu</span>
                     <span>• 6 jam 45 menit</span>
                   </div>
@@ -84,4 +109,3 @@ export default function LikedSongsPage() {
     </div>
   )
 }
-

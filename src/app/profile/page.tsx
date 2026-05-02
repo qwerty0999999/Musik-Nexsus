@@ -8,9 +8,11 @@ import Player from '@/components/music/Player'
 import ActivityFeed from '@/components/social/ActivityFeed'
 import useUser from '@/hooks/useUser'
 import { motion } from 'framer-motion'
-import { Settings, LogOut, Camera, Edit2 } from 'lucide-react'
+import { Settings, LogOut, Camera, Edit2, User } from 'lucide-react'
 import { supabase } from '@/lib/supabaseClient'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import Button from '@/components/ui/Button'
 
 export default function ProfilePage() {
   const user = useUser()
@@ -18,7 +20,27 @@ export default function ProfilePage() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
-    router.push('/login')
+    router.refresh() // Paksa refresh untuk update state user
+  }
+
+  if (user === null) {
+    return (
+      <div className="flex min-h-screen">
+        <Sidebar />
+        <main className="flex-1 flex flex-col items-center justify-center p-8 bg-transparent pb-32">
+           <div className="w-24 h-24 bg-white/5 rounded-full flex items-center justify-center mb-6 text-gray-500">
+              <User size={48} />
+           </div>
+           <h1 className="text-white text-3xl font-bold mb-2">Profil Pengguna</h1>
+           <p className="text-gray-400 text-center max-w-sm mb-8">Daftar atau masuk ke akun kamu untuk melihat profil, statistik musik, dan mengatur pengalaman mendengarmu.</p>
+           <Link href="/login">
+              <Button className="px-10 py-4 font-bold">Masuk Sekarang</Button>
+           </Link>
+        </main>
+        <MobileNav />
+        <Player />
+      </div>
+    )
   }
 
   return (
@@ -32,6 +54,7 @@ export default function ProfilePage() {
             animate={{ opacity: 1, scale: 1 }}
             className="max-w-4xl mx-auto"
           >
+            {/* ... (rest of the profile UI remains the same) */}
             <div className="relative h-64 bg-linear-to-r from-(--primary) to-(--accent) rounded-3xl mb-12 overflow-hidden shadow-2xl">
                <div className="absolute inset-0 bg-black/20" />
                <div className="absolute bottom-[-50px] left-8 flex items-end gap-6">
@@ -123,4 +146,3 @@ export default function ProfilePage() {
     </div>
   )
 }
-

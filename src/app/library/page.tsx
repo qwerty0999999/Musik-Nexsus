@@ -6,18 +6,41 @@ import Container from '@/components/ui/Container'
 import MobileNav from '@/components/layout/MobileNav'
 import Player from '@/components/music/Player'
 import ActivityFeed from '@/components/social/ActivityFeed'
-import Card from '@/components/ui/Card'
+import useUser from '@/hooks/useUser'
 import { motion } from 'framer-motion'
-import { Plus, Heart, Music, ListMusic } from 'lucide-react'
+import { Plus, Heart, ListMusic, LogIn } from 'lucide-react'
 import Link from 'next/link'
+import Button from '@/components/ui/Button'
 
 export default function LibraryPage() {
+  const user = useUser()
+  
   const playlists = [
-    { name: 'Koleksi Favorit', count: 124, type: 'Liked Songs' },
     { name: 'Santai Sore', count: 45, type: 'Playlist' },
     { name: 'Fokus Kerja', count: 28, type: 'Playlist' },
     { name: 'Workout Power', count: 15, type: 'Playlist' },
   ]
+
+  if (user === null) {
+    // Tampilan jika belum login (Guest Mode)
+    return (
+      <div className="flex min-h-screen">
+        <Sidebar />
+        <main className="flex-1 flex flex-col items-center justify-center p-8 bg-transparent pb-32">
+           <div className="w-24 h-24 bg-white/5 rounded-full flex items-center justify-center mb-6 text-gray-500">
+              <Library size={48} />
+           </div>
+           <h1 className="text-white text-3xl font-bold mb-2">Perpustakaan Kamu</h1>
+           <p className="text-gray-400 text-center max-w-sm mb-8">Masuk untuk melihat lagu yang kamu sukai, playlist yang kamu buat, dan riwayat musikmu.</p>
+           <Link href="/login">
+              <Button className="px-10 py-4 font-bold">Masuk Sekarang</Button>
+           </Link>
+        </main>
+        <MobileNav />
+        <Player />
+      </div>
+    )
+  }
 
   return (
     <div className="flex min-h-screen">
@@ -39,21 +62,11 @@ export default function LibraryPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               <Link href="/liked">
-                <Card className="h-64 flex flex-col justify-end p-6 bg-linear-to-br from-indigo-700 to-purple-800 border-none cursor-pointer group">
-                  <Heart fill="white" size={40} className="mb-4 text-white group-hover:scale-110 transition duration-300" />
-                  <h2 className="text-2xl font-bold text-white">Lagu Disukai</h2>
-                  <p className="text-white/60">124 Lagu</p>
-                </Card>
+                <CardLibrary title="Lagu Disukai" count={124} isLiked />
               </Link>
               
-              {playlists.slice(1).map((p, i) => (
-                <Card key={i} className="h-64 flex flex-col justify-end p-6 hover:bg-white/10 transition cursor-pointer group">
-                  <div className="w-16 h-16 bg-white/5 rounded-xl flex items-center justify-center mb-4 group-hover:bg-(--primary) transition duration-300">
-                    <ListMusic className="text-white" size={32} />
-                  </div>
-                  <h2 className="text-xl font-bold text-white truncate">{p.name}</h2>
-                  <p className="text-gray-400">{p.count} Lagu</p>
-                </Card>
+              {playlists.map((p, i) => (
+                <CardLibrary key={i} title={p.name} count={p.count} />
               ))}
             </div>
 
@@ -84,3 +97,14 @@ export default function LibraryPage() {
   )
 }
 
+function CardLibrary({ title, count, isLiked }: any) {
+  return (
+    <div className={`h-64 flex flex-col justify-end p-6 rounded-2xl transition cursor-pointer group ${isLiked ? 'bg-linear-to-br from-indigo-700 to-purple-800 border-none' : 'bg-white/5 border border-white/10 hover:bg-white/10'}`}>
+      <div className={`w-16 h-16 rounded-xl flex items-center justify-center mb-4 transition duration-300 ${isLiked ? 'bg-transparent' : 'bg-white/5 group-hover:bg-(--primary)'}`}>
+        {isLiked ? <Heart fill="white" size={40} className="text-white group-hover:scale-110 transition" /> : <ListMusic className="text-white" size={32} />}
+      </div>
+      <h2 className={`font-bold truncate ${isLiked ? 'text-2xl text-white' : 'text-xl text-white'}`}>{title}</h2>
+      <p className={isLiked ? 'text-white/60' : 'text-gray-400'}>{count} Lagu</p>
+    </div>
+  )
+}

@@ -10,18 +10,19 @@ import MobileNav from '@/components/layout/MobileNav'
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import { motion } from 'framer-motion'
+import useUser from '@/hooks/useUser'
 
 export default function Home() {
   const [songs, setSongs] = useState<any[]>([])
   const [recommended, setRecommended] = useState<any[]>([])
+  const user = useUser()
 
   useEffect(() => {
     fetchSongs()
   }, [])
 
   const fetchSongs = async () => {
-    // Simulasi data jika database kosong
-    const { data, error } = await supabase.from('songs').select('*')
+    const { data } = await supabase.from('songs').select('*')
     
     const mockSongs = [
       { id: '1', title: 'Lofi Vibes', artist: 'Chill Master', cover: 'https://images.unsplash.com/photo-1459749411177-042180ce673b?q=80&w=300&h=300&auto=format&fit=crop', url: '#' },
@@ -52,7 +53,9 @@ export default function Home() {
             <div className="flex justify-between items-end mb-6">
               <div>
                 <h2 className="text-(--accent) font-medium text-xs md:text-sm mb-1 uppercase tracking-wider">Pilihan Terbaik</h2>
-                <h2 className="text-white text-2xl md:text-3xl font-bold">🎯 Untuk Kamu</h2>
+                <h2 className="text-white text-2xl md:text-3xl font-bold">
+                  {user ? `🎯 Untuk ${user.email?.split('@')[0]}` : '🎯 Untuk Kamu'}
+                </h2>
               </div>
               <button className="text-(--primary) text-sm font-semibold hover:underline">Lihat Semua</button>
             </div>
@@ -94,4 +97,3 @@ export default function Home() {
     </div>
   )
 }
-
