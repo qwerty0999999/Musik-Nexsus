@@ -45,7 +45,7 @@ export default function ActivityFeed() {
   return (
     <div className="w-80 h-screen border-l border-white/5 p-6 hidden xl:flex flex-col gap-6 sticky top-0">
       <div className="flex items-center gap-2 text-white font-bold text-lg">
-        <Zap size={20} className="text-[var(--accent)]" />
+        <Zap size={20} className="text-(--accent)" />
         <h3>Live Activity</h3>
       </div>
 
@@ -60,17 +60,17 @@ export default function ActivityFeed() {
             >
               <Card className="!p-3 !bg-white/5 hover:!bg-white/10 transition group">
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[var(--primary)]/20 flex items-center justify-center text-[var(--primary)] text-xs font-bold">
+                  <div className="w-8 h-8 rounded-full bg-(--primary)/20 flex items-center justify-center text-(--primary) text-xs font-bold">
                     {a.user_id?.substring(0, 2).toUpperCase() || 'U'}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-white text-xs font-medium truncate">
-                      User <span className="text-[var(--accent)]">#{a.user_id?.substring(0, 4)}</span>
+                      User <span className="text-(--accent)">#{a.user_id?.substring(0, 4)}</span>
                     </p>
-                    <p className="text-[var(--muted)] text-[11px] mt-0.5">
+                    <p className="text-(--muted) text-[11px] mt-0.5">
                       {a.action === 'play' ? 'Sedang memutar' : 'Menyukai'}
                     </p>
-                    <p className="text-white text-[11px] font-semibold truncate mt-1 group-hover:text-[var(--primary)] transition">
+                    <p className="text-white text-[11px] font-semibold truncate mt-1 group-hover:text-(--primary) transition">
                       {a.songs?.title || 'Unknown Track'}
                     </p>
                   </div>
@@ -85,3 +85,4 @@ export default function ActivityFeed() {
     </div>
   )
 }
+

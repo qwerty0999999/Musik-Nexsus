@@ -39,11 +39,11 @@ export default function Register() {
         className="bg-white/5 border border-white/10 p-8 rounded-3xl w-full max-w-md backdrop-blur-xl"
       >
         <div className="flex flex-col items-center mb-10">
-          <div className="w-16 h-16 bg-[var(--accent)] rounded-2xl flex items-center justify-center text-black mb-4 shadow-xl shadow-cyan-400/20">
+          <div className="w-16 h-16 bg-(--accent) rounded-2xl flex items-center justify-center text-black mb-4 shadow-xl shadow-cyan-400/20">
             <UserPlus size={32} />
           </div>
           <h2 className="text-white text-3xl font-bold">Daftar Akun</h2>
-          <p className="text-[var(--muted)] mt-2 text-center">Gabung dengan komunitas RF Music dan bagikan playlist kerenmu!</p>
+          <p className="text-(--muted) mt-2 text-center">Gabung dengan komunitas RF Music dan bagikan playlist kerenmu!</p>
         </div>
 
         <form onSubmit={handleRegister} className="space-y-4">
@@ -52,7 +52,7 @@ export default function Register() {
             <input
               type="email"
               placeholder="nama@email.com"
-              className="w-full p-3 rounded-xl bg-black/40 border border-white/10 text-white outline-none focus:border-[var(--accent)] transition"
+              className="w-full p-3 rounded-xl bg-black/40 border border-white/10 text-white outline-none focus:border-(--accent) transition"
               onChange={(e) => setEmail(e.target.value)}
               required
             />
@@ -63,20 +63,20 @@ export default function Register() {
             <input
               type="password"
               placeholder="••••••••"
-              className="w-full p-3 rounded-xl bg-black/40 border border-white/10 text-white outline-none focus:border-[var(--accent)] transition"
+              className="w-full p-3 rounded-xl bg-black/40 border border-white/10 text-white outline-none focus:border-(--accent) transition"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
 
-          <Button className="w-full py-4 font-bold text-lg mt-4 !bg-[var(--accent)] !text-black !shadow-cyan-400/20" onClick={() => {}}>
+          <Button className="w-full py-4 font-bold text-lg mt-4 !bg-(--accent) !text-black !shadow-cyan-400/20" onClick={() => {}}>
             {loading ? 'Mendaftarkan...' : 'Buat Akun Sekarang'}
           </Button>
         </form>
 
         <p className="text-center text-gray-400 mt-8 text-sm">
           Sudah punya akun?{' '}
-          <Link href="/login" className="text-[var(--accent)] font-semibold hover:underline">
+          <Link href="/login" className="text-(--accent) font-semibold hover:underline">
             Login di sini
           </Link>
         </p>
@@ -84,3 +84,4 @@ export default function Register() {
     </div>
   )
 }
+

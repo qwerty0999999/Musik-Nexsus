@@ -14,7 +14,7 @@ export default function Sidebar() {
 
   return (
     <div className="hidden md:flex w-64 h-screen bg-[#0B0F1A] border-r border-white/5 p-6 text-white flex-col sticky top-0">
-      <h1 className="text-2xl font-bold mb-10 text-[var(--primary)]">Musik Nexsus</h1>
+      <h1 className="text-2xl font-bold mb-10 text-(--primary)">Musik Nexsus</h1>
 
       <nav className="space-y-6 flex-1">
         {menuItems.map((item, i) => (
@@ -23,7 +23,7 @@ export default function Sidebar() {
             href={item.href}
             className="flex items-center gap-4 text-gray-400 hover:text-white transition group"
           >
-            <span className="group-hover:text-[var(--primary)] transition">{item.icon}</span>
+            <span className="group-hover:text-(--primary) transition">{item.icon}</span>
             <span className="font-medium">{item.label}</span>
           </Link>
         ))}
@@ -36,3 +36,4 @@ export default function Sidebar() {
     </div>
   )
 }
+

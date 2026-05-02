@@ -38,7 +38,7 @@ export default function MusicCard({ song }: any) {
           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
             <button 
               onClick={handlePlay}
-              className="w-12 h-12 bg-[var(--primary)] rounded-full flex items-center justify-center text-white shadow-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
+              className="w-12 h-12 bg-(--primary) rounded-full flex items-center justify-center text-white shadow-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
             >
               <Play fill="currentColor" size={24} />
             </button>
@@ -46,10 +46,11 @@ export default function MusicCard({ song }: any) {
         </div>
 
         <h3 className="text-white font-semibold truncate">{song.title}</h3>
-        <p className="text-[var(--muted)] text-sm truncate">{song.artist}</p>
+        <p className="text-(--muted) text-sm truncate">{song.artist}</p>
         
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-br from-[var(--primary)]/10 to-[var(--accent)]/10 pointer-events-none" />
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-linear-to-br from-(--primary)/10 to-(--accent)/10 pointer-events-none" />
       </Card>
     </motion.div>
   )
 }
+

@@ -51,10 +51,10 @@ export default function Home() {
           >
             <div className="flex justify-between items-end mb-6">
               <div>
-                <h2 className="text-[var(--accent)] font-medium text-xs md:text-sm mb-1 uppercase tracking-wider">Pilihan Terbaik</h2>
+                <h2 className="text-(--accent) font-medium text-xs md:text-sm mb-1 uppercase tracking-wider">Pilihan Terbaik</h2>
                 <h2 className="text-white text-2xl md:text-3xl font-bold">🎯 Untuk Kamu</h2>
               </div>
-              <button className="text-[var(--primary)] text-sm font-semibold hover:underline">Lihat Semua</button>
+              <button className="text-(--primary) text-sm font-semibold hover:underline">Lihat Semua</button>
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
@@ -72,10 +72,10 @@ export default function Home() {
           >
             <div className="flex justify-between items-end mb-6">
               <div>
-                <h2 className="text-[var(--muted)] font-medium text-xs md:text-sm mb-1 uppercase tracking-wider">Eksplorasi</h2>
+                <h2 className="text-(--muted) font-medium text-xs md:text-sm mb-1 uppercase tracking-wider">Eksplorasi</h2>
                 <h2 className="text-white text-2xl md:text-3xl font-bold">🔥 Sedang Tren</h2>
               </div>
-              <button className="text-[var(--primary)] text-sm font-semibold hover:underline">Lihat Semua</button>
+              <button className="text-(--primary) text-sm font-semibold hover:underline">Lihat Semua</button>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
@@ -94,3 +94,4 @@ export default function Home() {
     </div>
   )
 }
+

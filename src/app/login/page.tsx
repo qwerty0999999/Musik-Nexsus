@@ -38,11 +38,11 @@ export default function Login() {
         className="bg-white/5 border border-white/10 p-8 rounded-3xl w-full max-w-md backdrop-blur-xl"
       >
         <div className="flex flex-col items-center mb-10">
-          <div className="w-16 h-16 bg-[var(--primary)] rounded-2xl flex items-center justify-center text-white mb-4 shadow-xl shadow-purple-500/20">
+          <div className="w-16 h-16 bg-(--primary) rounded-2xl flex items-center justify-center text-white mb-4 shadow-xl shadow-purple-500/20">
             <Music2 size={32} />
           </div>
           <h2 className="text-white text-3xl font-bold">Selamat Datang</h2>
-          <p className="text-[var(--muted)] mt-2 text-center">Masuk ke akun RF Music kamu dan mulai dengerin lagu favorit!</p>
+          <p className="text-(--muted) mt-2 text-center">Masuk ke akun RF Music kamu dan mulai dengerin lagu favorit!</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-4">
@@ -51,7 +51,7 @@ export default function Login() {
             <input
               type="email"
               placeholder="nama@email.com"
-              className="w-full p-3 rounded-xl bg-black/40 border border-white/10 text-white outline-none focus:border-[var(--primary)] transition"
+              className="w-full p-3 rounded-xl bg-black/40 border border-white/10 text-white outline-none focus:border-(--primary) transition"
               onChange={(e) => setEmail(e.target.value)}
               required
             />
@@ -62,7 +62,7 @@ export default function Login() {
             <input
               type="password"
               placeholder="••••••••"
-              className="w-full p-3 rounded-xl bg-black/40 border border-white/10 text-white outline-none focus:border-[var(--primary)] transition"
+              className="w-full p-3 rounded-xl bg-black/40 border border-white/10 text-white outline-none focus:border-(--primary) transition"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
@@ -75,7 +75,7 @@ export default function Login() {
 
         <p className="text-center text-gray-400 mt-8 text-sm">
           Belum punya akun?{' '}
-          <Link href="/register" className="text-[var(--primary)] font-semibold hover:underline">
+          <Link href="/register" className="text-(--primary) font-semibold hover:underline">
             Daftar Gratis
           </Link>
         </p>
@@ -83,3 +83,4 @@ export default function Login() {
     </div>
   )
 }
+

@@ -9,7 +9,7 @@ export default function Header() {
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
         <input
           placeholder="Cari lagu, artis..."
-          className="w-full bg-white/5 border border-white/10 px-12 py-2.5 rounded-full outline-none text-white focus:border-[var(--primary)] transition text-sm md:text-base"
+          className="w-full bg-white/5 border border-white/10 px-12 py-2.5 rounded-full outline-none text-white focus:border-(--primary) transition text-sm md:text-base"
         />
       </div>
 
@@ -17,8 +17,9 @@ export default function Header() {
         <button className="hidden sm:block p-2.5 bg-white/5 rounded-full hover:bg-white/10 transition text-gray-400 hover:text-white">
           <Bell size={20} />
         </button>
-        <div className="w-10 h-10 bg-[var(--primary)] rounded-full border-2 border-white/10 cursor-pointer" />
+        <div className="w-10 h-10 bg-(--primary) rounded-full border-2 border-white/10 cursor-pointer" />
       </div>
     </div>
   )
 }
+

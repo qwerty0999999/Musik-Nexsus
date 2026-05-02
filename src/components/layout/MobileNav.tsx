@@ -23,7 +23,7 @@ export default function MobileNav() {
           <Link 
             key={i} 
             href={item.href}
-            className={`flex flex-col items-center gap-1 transition ${isActive ? 'text-[var(--primary)]' : 'text-gray-500'}`}
+            className={`flex flex-col items-center gap-1 transition ${isActive ? 'text-(--primary)' : 'text-gray-500'}`}
           >
             {item.icon}
             <span className="text-[10px] font-medium">{item.label}</span>
@@ -33,3 +33,4 @@ export default function MobileNav() {
     </div>
   )
 }
+
