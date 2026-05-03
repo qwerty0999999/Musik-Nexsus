@@ -11,16 +11,13 @@ export async function GET(request: Request) {
 
     try {
         // --- LOGIKA ANTI-BRUTAL ---
-        // Tambahkan jeda acak agar tidak terlihat seperti bot saat mengambil stream
         const delay = Math.floor(Math.random() * (2000 - 1000 + 1) + 1000);
         await new Promise(resolve => setTimeout(resolve, delay));
 
-        // Validasi ID Video
-        if (!play.yt_validate(videoId)) {
-             return NextResponse.json({ error: 'Invalid YouTube Video ID' }, { status: 400 });
-        }
+        // Buat URL lengkap karena play-dl terkadang gagal jika hanya ID di beberapa environment
+        const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
-        // Set token/cookie untuk menghindari deteksi bot
+        // Set token/cookie jika ada
         if (process.env.YOUTUBE_COOKIE) {
             await play.setToken({
                 youtube: {
@@ -29,9 +26,8 @@ export async function GET(request: Request) {
             });
         }
 
-        // Dapatkan stream
-        // Kita gunakan quality: 1 (medium) untuk keseimbangan kecepatan dan kualitas
-        const streamInfo = await play.stream(videoId, {
+        // Dapatkan stream menggunakan URL lengkap
+        const streamInfo = await play.stream(videoUrl, {
             quality: 1,
             seek: 0
         }) as any;
