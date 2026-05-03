@@ -58,7 +58,7 @@ export default function ActivityFeed() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, scale: 0.95 }}
             >
-              <Card className="!p-3 !bg-white/5 hover:!bg-white/10 transition group">
+              <Card className="p-3! bg-white/5! hover:bg-white/10! transition group">
                 <div className="flex items-start gap-3">
                   <div className="w-8 h-8 rounded-full bg-(--primary)/20 flex items-center justify-center text-(--primary) text-xs font-bold">
                     {a.user_id?.substring(0, 2).toUpperCase() || 'U'}
@@ -85,5 +85,3 @@ export default function ActivityFeed() {
     </div>
   )
 }
-
-

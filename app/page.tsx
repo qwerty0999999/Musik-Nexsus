@@ -7,7 +7,7 @@ import MusicCard from '@/components/music/MusicCard'
 import Player from '@/components/music/Player'
 import ActivityFeed from '@/components/social/ActivityFeed'
 import MobileNav from '@/components/layout/MobileNav'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import { motion } from 'framer-motion'
 import useUser from '@/lib/useUser'
@@ -43,7 +43,9 @@ export default function Home() {
 
       <main className="flex-1 bg-transparent overflow-y-auto pb-32 md:pb-8">
         <Container className="px-4 md:px-8">
-          <Header />
+          <Suspense fallback={null}>
+            <Header />
+          </Suspense>
 
           <motion.section 
             initial={{ opacity: 0, y: 20 }}
@@ -97,4 +99,3 @@ export default function Home() {
     </div>
   )
 }
-

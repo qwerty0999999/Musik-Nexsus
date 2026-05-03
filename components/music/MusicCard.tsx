@@ -12,14 +12,34 @@ export default function MusicCard({ song }: any) {
   const user = useUser()
 
   const handlePlay = async () => {
-    setSong(song)
+    console.log('--- Playing Song:', song.title, '---')
+    try {
+      // Jika lagu berasal dari YouTube, kita perlu ambil stream URL aslinya
+      if (song.source === 'youtube' || !song.url || song.url === '#') {
+        const res = await fetch(`/api/v1/stream?v=${song.id}`)
+        const data = await res.json()
+        
+        if (data.url) {
+          console.log('Stream URL obtained successfully')
+          setSong({ ...song, url: data.url })
+        } else {
+          console.error('Stream error:', data.error)
+          alert(data.error || 'Gagal memutar lagu ini. YouTube membatasi akses.')
+          return
+        }
+      } else {
+        setSong(song)
+      }
 
-    if (user) {
-      await supabase.from('activities').insert({
-        user_id: user.id,
-        song_id: song.id,
-        action: 'play',
-      })
+      if (user) {
+        await supabase.from('activities').insert({
+          user_id: user.id,
+          song_id: song.id,
+          action: 'play',
+        })
+      }
+    } catch (err) {
+      console.error('Frontend Error playing song:', err)
     }
   }
 
