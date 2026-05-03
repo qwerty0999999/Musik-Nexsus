@@ -16,7 +16,7 @@ export async function getInitializedYTMusic() {
     if (!globalForYT.isInitialized) {
         console.log('--- Initializing YTMusic with Cookie ---');
         await ytmusic.initialize({
-            cookie: process.env.YOUTUBE_COOKIE
+            cookies: process.env.YOUTUBE_COOKIE
         });
         globalForYT.isInitialized = true;
     }

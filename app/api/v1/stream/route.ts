@@ -34,14 +34,13 @@ export async function GET(request: Request) {
         const streamInfo = await play.stream(videoId, {
             quality: 1,
             seek: 0
-        });
+        }) as any;
 
         if (!streamInfo || !streamInfo.url) {
             throw new Error('No stream URL found');
         }
 
         return NextResponse.json({ 
-            // @ts-ignore
             url: streamInfo.url,
             expiresIn: 3600 
         });
