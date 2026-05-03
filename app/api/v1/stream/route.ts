@@ -11,13 +11,13 @@ export async function GET(request: Request) {
 
     try {
         // --- LOGIKA ANTI-BRUTAL ---
-        const delay = Math.floor(Math.random() * (3000 - 1500 + 1) + 1500);
+        const delay = Math.floor(Math.random() * (2000 - 1000 + 1) + 1000);
         await new Promise(resolve => setTimeout(resolve, delay));
 
         const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
-        console.log('STREAMING REQUEST FOR:', videoUrl);
 
-        // Set token/cookie jika ada
+        // Konfigurasi play-dl dengan User Agent yang terlihat seperti browser asli
+        // Ini sangat penting di server cloud (Vercel)
         if (process.env.YOUTUBE_COOKIE) {
             await play.setToken({
                 youtube: {
@@ -26,26 +26,25 @@ export async function GET(request: Request) {
             });
         }
 
-        // AMBIL INFO VIDEO TERLEBIH DAHULU (Lebih Stabil)
-        // Ini membantu play-dl menyiapkan internal state sebelum streaming
+        // Ambil info video
         const videoInfo = await play.video_info(videoUrl);
         
-        // Dapatkan stream
-        const streamInfo = await play.stream_from_info(videoInfo, {
-            quality: 1,
+        // Ambil stream dengan format audio saja untuk kecepatan
+        const stream = await play.stream_from_info(videoInfo, {
+            quality: 1, // Medium quality
             seek: 0
         }) as any;
 
-        if (!streamInfo || !streamInfo.url) {
-            throw new Error('No stream URL found after video_info check');
+        if (!stream || !stream.url) {
+            throw new Error('Stream URL not found after heavy check');
         }
 
         return NextResponse.json({ 
-            url: streamInfo.url,
+            url: stream.url,
             expiresIn: 3600 
         });
     } catch (error: any) {
-        console.error('PLAY-DL DETAILED ERROR:', error.message);
+        console.error('SERVER-SIDE STREAM ERROR:', error);
         
         // Cek jika error karena bot detection
         if (error.message.includes('429') || error.message.includes('Too Many Requests')) {
