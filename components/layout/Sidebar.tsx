@@ -10,9 +10,33 @@ export default function Sidebar() {
   const user = useUser()
 
   const menuItems = [
-    { icon: <Home size={22} />, label: 'Beranda', href: '/' },
-    { icon: <Compass size={22} />, label: 'Eksplorasi', href: '/search' },
-    { icon: <Library size={22} />, label: 'Koleksi', href: '/library' },
+    { 
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M4 10V21H9V15H15V21H20V10L12 3L4 10Z" />
+        </svg>
+      ), 
+      label: 'Beranda', 
+      href: '/' 
+    },
+    { 
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+        </svg>
+      ), 
+      label: 'Eksplorasi', 
+      href: '/search' 
+    },
+    { 
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20 2H8C6.9 2 6 2.9 6 4V16C6 17.1 6.9 18 8 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H8V4H20V16ZM4 6H2V20C2 21.1 2.9 22 4 22H18V20H4V6Z" />
+        </svg>
+      ), 
+      label: 'Koleksi', 
+      href: '/library' 
+    },
   ]
 
   return (

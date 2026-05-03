@@ -56,8 +56,10 @@ export default function Home() {
             <div className="flex justify-between items-end mb-8">
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <Sparkles size={16} className="text-(--primary)" />
-                  <span className="text-(--muted) font-semibold text-xs uppercase tracking-[0.2em]">Pilihan Terbaik</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="text-white">
+                    <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
+                  </svg>
+                  <span className="text-gray-400 font-bold text-[11px] uppercase tracking-[0.2em]">Pilihan Terbaik</span>
                 </div>
                 <h2 className="text-white text-3xl md:text-4xl font-bold tracking-tight">
                   {user ? `Untuk ${user.email?.split('@')[0]}` : 'Untuk Kamu'}
@@ -84,8 +86,10 @@ export default function Home() {
             <div className="flex justify-between items-end mb-8">
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <TrendingUp size={16} className="text-(--accent)" />
-                  <span className="text-(--muted) font-semibold text-xs uppercase tracking-[0.2em]">Eksplorasi</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-white">
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+                  </svg>
+                  <span className="text-gray-400 font-bold text-[11px] uppercase tracking-[0.2em]">Eksplorasi</span>
                 </div>
                 <h2 className="text-white text-3xl md:text-4xl font-bold tracking-tight">Sedang Tren</h2>
               </div>
