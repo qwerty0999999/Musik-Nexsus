@@ -11,11 +11,11 @@ export async function GET(request: Request) {
 
     try {
         // --- LOGIKA ANTI-BRUTAL ---
-        const delay = Math.floor(Math.random() * (2000 - 1000 + 1) + 1000);
+        const delay = Math.floor(Math.random() * (3000 - 1500 + 1) + 1500);
         await new Promise(resolve => setTimeout(resolve, delay));
 
-        // Buat URL lengkap karena play-dl terkadang gagal jika hanya ID di beberapa environment
         const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+        console.log('STREAMING REQUEST FOR:', videoUrl);
 
         // Set token/cookie jika ada
         if (process.env.YOUTUBE_COOKIE) {
@@ -26,14 +26,18 @@ export async function GET(request: Request) {
             });
         }
 
-        // Dapatkan stream menggunakan URL lengkap
-        const streamInfo = await play.stream(videoUrl, {
+        // AMBIL INFO VIDEO TERLEBIH DAHULU (Lebih Stabil)
+        // Ini membantu play-dl menyiapkan internal state sebelum streaming
+        const videoInfo = await play.video_info(videoUrl);
+        
+        // Dapatkan stream
+        const streamInfo = await play.stream_from_info(videoInfo, {
             quality: 1,
             seek: 0
         }) as any;
 
         if (!streamInfo || !streamInfo.url) {
-            throw new Error('No stream URL found');
+            throw new Error('No stream URL found after video_info check');
         }
 
         return NextResponse.json({ 
