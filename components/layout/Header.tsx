@@ -26,7 +26,7 @@ export default function Header() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Cari lagu, artis, podcast..."
-          className="w-full bg-[#1d1d1d] border border-white/5 px-14 py-3 rounded-xl outline-none text-white focus:bg-[#2a2a2a] focus:border-white/10 transition-all text-sm md:text-base font-medium placeholder:text-gray-500 shadow-inner"
+          className="w-full bg-[#1d1d1d] border border-white/5 px-14 py-3 rounded-full outline-none text-white focus:bg-[#2a2a2a] focus:border-white/10 transition-all text-sm md:text-base font-medium placeholder:text-gray-500 shadow-inner"
         />
       </form>
 
