@@ -1,76 +1,119 @@
 # 🎵 Musik Nexsus (Pulse)
 
-**Musik Nexsus** (atau dikenal sebagai **Pulse**) adalah platform pemutar musik modern berbasis web yang dirancang dengan antarmuka futuristik, performa tinggi, dan pengalaman pengguna yang imersif. Proyek ini mengintegrasikan berbagai sumber musik seperti YouTube dan Spotify ke dalam satu antarmuka yang elegan.
+[![Next.js](https://img.shields.io/badge/Next.js-16.0-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
+[![Better Auth](https://img.shields.io/badge/Better_Auth-Secure-orange?style=for-the-badge)](https://better-auth.com/)
+
+**Musik Nexsus** (atau dikenal sebagai **Pulse**) adalah platform streaming musik modern yang menggabungkan estetika futuristik dengan performa tinggi. Dibangun dengan teknologi web terbaru, Pulse menawarkan pengalaman mendengarkan musik yang imersif, cepat, dan elegan.
+
+---
 
 ## ✨ Fitur Utama
 
-- **Antarmuka Futuristik (PULSE UI):** Desain gelap yang elegan dengan efek *ambient glow*, *glassmorphism*, dan elemen visual modern (Material Design 3 influenced).
-- **Pencarian Multi-Platform:** Cari lagu favorit Anda secara bersamaan dari YouTube Music dan Spotify.
-- **Audio Visualizer Real-time:** Visualisasi spektrum audio yang interaktif menggunakan Web Audio API saat musik diputar.
-- **Streaming Tanpa Batas:** Sistem proxy streaming yang dioptimalkan untuk mendukung berbagai sumber audio (YouTube, Jamendo, Spotify Previews).
-- **Responsive & Seamless:** Pengalaman yang mulus di perangkat mobile maupun desktop dengan animasi transisi yang halus menggunakan Framer Motion.
-- **Immersive Mini Player:** Kontrol musik yang selalu dapat diakses dengan visualisasi progres yang menarik di setiap halaman.
+- **🚀 Performa Next-Gen:** Menggunakan Next.js 16 (App Router) untuk rendering yang super cepat dan SEO-friendly.
+- **🎨 UI Futuristik (PULSE UI):** Desain berbasis *Glassmorphism* dengan palet warna neon yang elegan (Indigo & Cyan).
+- **🔒 Autentikasi Modern:** Sistem login aman menggunakan **Better-auth** dengan dukungan Social Login (Google).
+- **🎼 Pemutar Musik Terintegrasi:** Kontrol musik yang mulus dengan visualisasi progres dan antarmuka yang responsif.
+- **💾 Database Robust:** Integrasi **Prisma ORM** dengan **PostgreSQL** dan **Supabase** untuk manajemen data yang handal.
+- **⚡ State Management:** Menggunakan **Zustand** untuk pengelolaan state aplikasi yang ringan dan efisien.
+- **📱 Responsive Design:** Optimal di semua ukuran layar, dari desktop hingga perangkat mobile.
 
-## 🚀 Teknologi yang Digunakan
+---
 
-- **Framework:** [Next.js 16 (Canary)](https://nextjs.org/) (App Router)
+## 🛠️ Tech Stack
+
+### Core
+- **Framework:** [Next.js 16](https://nextjs.org/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
 - **Styling:** [Tailwind CSS 4](https://tailwindcss.com/)
-- **Animasi:** [Framer Motion](https://www.framer.com/motion/)
-- **Database & Auth:** [Supabase](https://supabase.com/)
-- **Audio Engine:** Web Audio API & `play-dl` untuk streaming YouTube.
-- **Integrasi API:** Spotify API & YouTube Music API (`ytmusic-api`).
-- **Bahasa:** [TypeScript](https://www.typescriptlang.org/)
+- **Animation:** [Framer Motion](https://www.framer.com/motion/)
 
-## 🛠️ Persiapan Lingkungan
+### Backend & Data
+- **ORM:** [Prisma](https://www.prisma.io/)
+- **Database:** PostgreSQL & [Supabase](https://supabase.com/)
+- **Authentication:** [Better-auth](https://better-auth.com/)
+- **Icons:** [Lucide React](https://lucide.dev/)
 
-Sebelum menjalankan proyek, pastikan Anda telah menyiapkan variabel lingkungan berikut di file `.env.local`. Anda bisa menyalin contoh dari `.env.example`:
+### State Management
+- **Store:** [Zustand](https://github.com/pmndrs/zustand)
 
-```env
-# Spotify API
-SPOTIFY_CLIENT_ID=your_spotify_client_id
-SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
+---
 
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-```
+## 🚀 Memulai (Getting Started)
 
-## 📦 Instalasi & Pengembangan
+### Prasyarat
+- Node.js 20.x atau lebih baru
+- Database PostgreSQL
+
+### Instalasi
 
 1. **Clone repository:**
    ```bash
    git clone https://github.com/username/musik-nexsus.git
-   ```
-
-2. **Masuk ke direktori proyek:**
-   ```bash
    cd musik-nexsus
    ```
 
-3. **Instal dependensi:**
+2. **Instal dependensi:**
    ```bash
    npm install
    ```
 
-4. **Jalankan server pengembangan:**
+3. **Konfigurasi Environment:**
+   Buat file `.env.local` dan lengkapi variabel berikut:
+   ```env
+   # Database (Prisma)
+   DATABASE_URL="postgresql://user:password@localhost:5432/musik_nexsus"
+
+   # Supabase
+   NEXT_PUBLIC_SUPABASE_URL="your_supabase_url"
+   NEXT_PUBLIC_SUPABASE_ANON_KEY="your_supabase_anon_key"
+
+   # Better Auth
+   BETTER_AUTH_SECRET="your_secret_key"
+   BETTER_AUTH_URL="http://localhost:3000"
+
+   # Social Login (Google)
+   GOOGLE_CLIENT_ID="your_google_client_id"
+   GOOGLE_CLIENT_SECRET="your_google_client_secret"
+   ```
+
+4. **Sinkronisasi Database:**
+   ```bash
+   npx prisma db push
+   ```
+
+5. **Jalankan server pengembangan:**
    ```bash
    npm run dev
    ```
 
-5. Buka [http://localhost:3000](http://localhost:3000) di browser Anda.
-
-## 📂 Struktur Proyek
-
-- `src/app`: Routing dan halaman utama (Home, Discover, Player).
-- `src/components`: Komponen UI modular (Visualizer, NavBar, dll).
-- `src/context`: State management global untuk kontrol musik.
-- `src/lib`: Logika integrasi API (Spotify, YouTube, Supabase).
-- `src/types`: Definisi tipe data TypeScript untuk konsistensi kode.
+Buka [http://localhost:3000](http://localhost:3000) untuk melihat hasilnya!
 
 ---
 
-Dibuat dengan ❤️ untuk para pecinta musik.
+## 📂 Struktur Proyek
 
-**Editor Setup**
-- **Tailwind IntelliSense:** Gunakan ekstensi "Tailwind CSS IntelliSense" di VS Code untuk saran class name.
-- **VS Code settings:** Pengaturan workspace otomatis tersedia di `.vscode/settings.json` untuk kenyamanan pengembangan.
+```text
+├── app/              # Routing & Halaman (Next.js App Router)
+├── components/       # Komponen UI modular
+│   ├── flow/         # Fitur Diagram (ERD & Sitemap) - WIP
+│   ├── layout/       # Sidebar, Header, MobileNav
+│   ├── music/        # Komponen Pemutar Musik
+│   └── ui/           # Komponen UI Dasar (Button, Card, dll)
+├── lib/              # Konfigurasi Library (Auth, Prisma, Supabase)
+├── prisma/           # Skema Database (Prisma Schema)
+├── public/           # Aset Statis (Icons, Logos)
+├── store/            # State Management (Zustand Slices)
+└── tailwind.config.js # Konfigurasi Tailwind CSS
+```
+
+---
+
+## 🤝 Kontribusi
+
+Kontribusi selalu terbuka! Silakan buka *issue* atau kirim *pull request* jika ingin membantu mengembangkan Musik Nexsus.
+
+---
+
+Dibuat dengan ❤️ oleh [Rijalul Fikri](https://github.com/qwerty0999999)
