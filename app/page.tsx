@@ -11,6 +11,7 @@ import { useEffect, useState, Suspense } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import { motion } from 'framer-motion'
 import useUser from '@/lib/useUser'
+import { Sparkles, TrendingUp, ChevronRight } from 'lucide-react'
 
 export default function Home() {
   const [songs, setSongs] = useState<any[]>([])
@@ -52,17 +53,22 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-12"
           >
-            <div className="flex justify-between items-end mb-6">
+            <div className="flex justify-between items-end mb-8">
               <div>
-                <h2 className="text-(--accent) font-medium text-xs md:text-sm mb-1 uppercase tracking-wider">Pilihan Terbaik</h2>
-                <h2 className="text-white text-2xl md:text-3xl font-bold">
-                  {user ? `🎯 Untuk ${user.email?.split('@')[0]}` : '🎯 Untuk Kamu'}
+                <div className="flex items-center gap-2 mb-2">
+                  <Sparkles size={16} className="text-(--primary)" />
+                  <span className="text-(--muted) font-semibold text-xs uppercase tracking-[0.2em]">Pilihan Terbaik</span>
+                </div>
+                <h2 className="text-white text-3xl md:text-4xl font-bold tracking-tight">
+                  {user ? `Untuk ${user.email?.split('@')[0]}` : 'Untuk Kamu'}
                 </h2>
               </div>
-              <button className="text-(--primary) text-sm font-semibold hover:underline">Lihat Semua</button>
+              <button className="flex items-center gap-1 text-(--primary) text-sm font-bold hover:gap-2 transition-all">
+                Lihat Semua <ChevronRight size={16} />
+              </button>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
               {recommended.map((song) => (
                 <MusicCard key={song.id} song={song} />
               ))}
@@ -75,15 +81,20 @@ export default function Home() {
             transition={{ delay: 0.2 }}
             className="mb-24"
           >
-            <div className="flex justify-between items-end mb-6">
+            <div className="flex justify-between items-end mb-8">
               <div>
-                <h2 className="text-(--muted) font-medium text-xs md:text-sm mb-1 uppercase tracking-wider">Eksplorasi</h2>
-                <h2 className="text-white text-2xl md:text-3xl font-bold">🔥 Sedang Tren</h2>
+                <div className="flex items-center gap-2 mb-2">
+                  <TrendingUp size={16} className="text-(--accent)" />
+                  <span className="text-(--muted) font-semibold text-xs uppercase tracking-[0.2em]">Eksplorasi</span>
+                </div>
+                <h2 className="text-white text-3xl md:text-4xl font-bold tracking-tight">Sedang Tren</h2>
               </div>
-              <button className="text-(--primary) text-sm font-semibold hover:underline">Lihat Semua</button>
+              <button className="flex items-center gap-1 text-(--primary) text-sm font-bold hover:gap-2 transition-all">
+                Lihat Semua <ChevronRight size={16} />
+              </button>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8">
               {songs.map((song) => (
                 <MusicCard key={song.id} song={song} />
               ))}

@@ -59,47 +59,47 @@ export default function Player() {
               <SkipBack size={28} className="-rotate-90 md:w-8 md:h-8" />
             </button>
 
-            <div className="absolute inset-0 -z-10 opacity-40 blur-[120px] scale-150">
+            <div className="absolute inset-0 -z-10 opacity-20 blur-[100px] scale-125">
                <img src={currentSong.cover} className="w-full h-full object-cover" alt="" />
             </div>
 
             <motion.div 
-              className="w-full max-w-[280px] md:max-w-sm aspect-square rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-white/10"
-              animate={isPlaying ? { scale: [1, 1.03, 1] } : {}}
-              transition={{ repeat: Infinity, duration: 8 }}
+              className="w-full max-w-[300px] md:max-w-md aspect-square rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5"
+              animate={isPlaying ? { scale: [1, 1.02, 1] } : {}}
+              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
             >
               <img src={currentSong.cover} className="w-full h-full object-cover" alt="" />
             </motion.div>
 
-            <div className="w-full max-w-xl text-center md:text-left">
-               <h1 className="text-white text-3xl md:text-6xl font-bold mb-1 md:mb-2 truncate">{currentSong.title}</h1>
-               <p className="text-(--primary) text-lg md:text-2xl mb-8 md:mb-12 font-medium truncate">{currentSong.artist}</p>
+            <div className="w-full max-w-2xl text-center">
+               <h1 className="text-white text-4xl md:text-7xl font-bold mb-3 tracking-tighter truncate px-4">{currentSong.title}</h1>
+               <p className="text-(--primary) text-xl md:text-2xl mb-12 font-semibold tracking-wide uppercase opacity-90 truncate">{currentSong.artist}</p>
 
-               <div className="space-y-6 md:space-y-8">
-                  <div className="space-y-2">
-                    <div className="w-full h-1.5 md:h-2 bg-white/10 rounded-full relative overflow-hidden">
+               <div className="space-y-10 md:space-y-12 px-4">
+                  <div className="space-y-3">
+                    <div className="w-full h-1.5 bg-white/5 rounded-full relative overflow-hidden group cursor-pointer">
                       <motion.div 
-                        className="absolute inset-y-0 left-0 bg-linear-to-r from-(--primary) to-(--accent)"
+                        className="absolute inset-y-0 left-0 bg-white shadow-[0_0_15px_rgba(255,255,255,0.5)]"
                         animate={{ width: `${progress}%` }}
                       />
                     </div>
-                    <div className="flex justify-between text-gray-500 text-[10px] md:text-sm font-medium">
+                    <div className="flex justify-between text-gray-500 text-xs font-bold tracking-widest uppercase">
                       <span>0:00</span>
                       <span>3:45</span>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-center gap-8 md:gap-12 text-white">
-                    <Shuffle size={24} className="text-gray-500 hover:text-(--primary) cursor-pointer hidden sm:block" />
-                    <SkipBack size={32} className="cursor-pointer hover:text-(--primary) md:w-12 md:h-12" />
+                  <div className="flex items-center justify-center gap-10 md:gap-16 text-white">
+                    <Shuffle size={20} className="text-gray-500 hover:text-white cursor-pointer transition hidden sm:block" />
+                    <SkipBack size={36} className="cursor-pointer hover:text-(--primary) transition" />
                     <button 
                       onClick={togglePlay}
-                      className="w-16 h-16 md:w-24 md:h-24 bg-white rounded-full flex items-center justify-center text-black hover:scale-105 transition shadow-2xl active:scale-95"
+                      className="w-20 h-20 md:w-28 md:h-28 bg-white rounded-full flex items-center justify-center text-black hover:scale-105 transition-all duration-300 shadow-2xl active:scale-95"
                     >
-                      {isPlaying ? <Pause fill="currentColor" size={28} className="md:w-10 md:h-10" /> : <Play fill="currentColor" size={28} className="md:w-10 md:h-10 ml-1" />}
+                      {isPlaying ? <Pause fill="currentColor" size={32} /> : <Play fill="currentColor" size={32} className="ml-1" />}
                     </button>
-                    <SkipForward size={32} className="cursor-pointer hover:text-(--primary) md:w-12 md:h-12" />
-                    <Repeat size={24} className="text-gray-500 hover:text-(--primary) cursor-pointer hidden sm:block" />
+                    <SkipForward size={36} className="cursor-pointer hover:text-(--primary) transition" />
+                    <Repeat size={20} className="text-gray-500 hover:text-white cursor-pointer transition hidden sm:block" />
                   </div>
                </div>
             </div>
