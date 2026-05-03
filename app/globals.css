@@ -1,18 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0B0F1A;
-  --card: #121826;
-  --primary: #7C5CFF;
-  --accent: #00E5FF;
+  --bg: #030303;
+  --card: #1d1d1d;
+  --primary: #ffffff;
+  --accent: #ff0000;
   --text: #FFFFFF;
-  --muted: #A0A7B8;
+  --muted: #aaaaaa;
 }
 
 body {
   background-color: var(--bg);
   color: var(--text);
   font-family: 'Inter', sans-serif;
+  letter-spacing: -0.01em;
 }
 
 @layer utilities {

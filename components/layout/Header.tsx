@@ -17,22 +17,24 @@ export default function Header() {
   }
 
   return (
-    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 md:gap-4 mb-6 md:mb-8">
-      <form onSubmit={handleSearch} className="relative w-full md:w-96">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
+    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 md:gap-4 py-4 mb-8 sticky top-0 bg-[#030303]/80 backdrop-blur-md z-40">
+      <form onSubmit={handleSearch} className="relative w-full md:w-[600px] mx-auto">
+        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400">
+           <Search size={20} strokeWidth={2.5} />
+        </div>
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Cari lagu, artis..."
-          className="w-full bg-white/5 border border-white/10 px-10 py-2 md:py-2.5 rounded-full outline-none text-white focus:border-(--primary) transition text-xs md:text-base"
+          placeholder="Cari lagu, artis, podcast..."
+          className="w-full bg-[#1d1d1d] border border-white/5 px-14 py-3 rounded-xl outline-none text-white focus:bg-[#2a2a2a] focus:border-white/10 transition-all text-sm md:text-base font-medium placeholder:text-gray-500 shadow-inner"
         />
       </form>
 
-      <div className="flex gap-3 items-center self-end md:self-auto">
-        <button className="hidden sm:block p-2.5 bg-white/5 rounded-full hover:bg-white/10 transition text-gray-400 hover:text-white">
-          <Bell size={18} />
+      <div className="flex gap-4 items-center hidden md:flex">
+        <button className="p-2.5 hover:bg-white/10 rounded-full transition text-white">
+          <Bell size={22} />
         </button>
-        <div className="w-8 h-8 md:w-10 md:h-10 bg-(--primary) rounded-full border-2 border-white/10 cursor-pointer shadow-lg shadow-purple-500/20" />
+        <div className="w-9 h-9 bg-linear-to-tr from-orange-400 to-rose-500 rounded-full cursor-pointer hover:scale-105 transition active:scale-95" />
       </div>
     </div>
   )
