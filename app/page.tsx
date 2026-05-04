@@ -19,24 +19,24 @@ export default function Home() {
   const user = useUser()
 
   useEffect(() => {
+    const fetchSongs = async () => {
+      const { data } = await supabase.from('songs').select('*')
+      
+      const mockSongs = [
+        { id: '1', title: 'Lofi Vibes', artist: 'Chill Master', cover: 'https://images.unsplash.com/photo-1459749411177-042180ce673b?q=80&w=300&h=300&auto=format&fit=crop', url: '#' },
+        { id: '2', title: 'Midnight City', artist: 'Synth Wave', cover: 'https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=300&h=300&auto=format&fit=crop', url: '#' },
+        { id: '3', title: 'Ocean Breeze', artist: 'Nature Sounds', cover: 'https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=300&h=300&auto=format&fit=crop', url: '#' },
+        { id: '4', title: 'Future Bass', artist: 'Electric Soul', cover: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=300&h=300&auto=format&fit=crop', url: '#' },
+        { id: '5', title: 'Acoustic Morning', artist: 'Guitar Hero', cover: 'https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?q=80&w=300&h=300&auto=format&fit=crop', url: '#' },
+      ]
+
+      const finalSongs = data && data.length > 0 ? data : mockSongs
+      setSongs(finalSongs)
+      setRecommended(finalSongs.slice(0, 4))
+    }
+
     fetchSongs()
   }, [])
-
-  const fetchSongs = async () => {
-    const { data } = await supabase.from('songs').select('*')
-    
-    const mockSongs = [
-      { id: '1', title: 'Lofi Vibes', artist: 'Chill Master', cover: 'https://images.unsplash.com/photo-1459749411177-042180ce673b?q=80&w=300&h=300&auto=format&fit=crop', url: '#' },
-      { id: '2', title: 'Midnight City', artist: 'Synth Wave', cover: 'https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=300&h=300&auto=format&fit=crop', url: '#' },
-      { id: '3', title: 'Ocean Breeze', artist: 'Nature Sounds', cover: 'https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=300&h=300&auto=format&fit=crop', url: '#' },
-      { id: '4', title: 'Future Bass', artist: 'Electric Soul', cover: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=300&h=300&auto=format&fit=crop', url: '#' },
-      { id: '5', title: 'Acoustic Morning', artist: 'Guitar Hero', cover: 'https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?q=80&w=300&h=300&auto=format&fit=crop', url: '#' },
-    ]
-
-    const finalSongs = data && data.length > 0 ? data : mockSongs
-    setSongs(finalSongs)
-    setRecommended(finalSongs.slice(0, 4))
-  }
 
   return (
     <div className="flex min-h-screen">
