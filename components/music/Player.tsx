@@ -7,7 +7,7 @@ import { useRef, useEffect, useState } from 'react'
 import { Play, Pause, SkipBack, SkipForward, Repeat, Shuffle, Volume2 } from 'lucide-react'
 
 export default function Player() {
-  const { currentSong } = usePlayer() as any
+  const { currentSong } = usePlayer() as { currentSong: { url: string, cover: string, title: string, artist: string, duration?: string } | null }
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)

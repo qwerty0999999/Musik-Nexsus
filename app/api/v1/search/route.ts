@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getInitializedYTMusic } from '@/lib/ytmusic';
 
 // Cache sederhana di memori
-const searchCache = new Map<string, { data: any, timestamp: number }>();
+const searchCache = new Map<string, { data: Record<string, unknown>[], timestamp: number }>();
 const CACHE_DURATION = 1000 * 60 * 5; // 5 menit
 
 export async function GET(request: Request) {
@@ -37,10 +37,11 @@ export async function GET(request: Request) {
         searchCache.set(query, { data: formattedSongs, timestamp: Date.now() });
 
         return NextResponse.json({ data: formattedSongs });
-    } catch (error: any) {
-        console.error('YTMusic Search Error:', error.message);
+    } catch (error: unknown) {
+        const err = error as Error;
+        console.error('YTMusic Search Error:', err.message);
         
-        if (error.message?.includes('429')) {
+        if (err.message?.includes('429')) {
             return NextResponse.json({ 
                 error: 'YouTube sedang membatasi permintaan. Silakan gunakan lagu lain atau tunggu beberapa saat.',
                 isRateLimited: true 

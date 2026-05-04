@@ -14,8 +14,8 @@ import useUser from '@/lib/useUser'
 import { ChevronRight } from 'lucide-react'
 
 export default function Home() {
-  const [songs, setSongs] = useState<any[]>([])
-  const [recommended, setRecommended] = useState<any[]>([])
+  const [songs, setSongs] = useState<Record<string, unknown>[]>([])
+  const [recommended, setRecommended] = useState<Record<string, unknown>[]>([])
   const user = useUser()
 
   useEffect(() => {

@@ -98,7 +98,7 @@ export default function LibraryPage() {
   )
 }
 
-function CardLibrary({ title, count, isLiked }: any) {
+function CardLibrary({ title, count, isLiked }: { title: string, count: number, isLiked?: boolean }) {
   return (
     <div className={`h-64 flex flex-col justify-end p-6 rounded-2xl transition cursor-pointer group ${isLiked ? 'bg-linear-to-br from-indigo-700 to-purple-800 border-none' : 'bg-white/5 border border-white/10 hover:bg-white/10'}`}>
       <div className={`w-16 h-16 rounded-xl flex items-center justify-center mb-4 transition duration-300 ${isLiked ? 'bg-transparent' : 'bg-white/5 group-hover:bg-(--primary)'}`}>

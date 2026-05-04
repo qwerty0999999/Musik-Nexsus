@@ -52,8 +52,12 @@ export default function Register() {
 
       setSuccess(true)
       setTimeout(() => router.push('/login'), 3000)
-    } catch (error: any) {
-      setErrorMsg(error.message)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setErrorMsg(error.message)
+      } else {
+        setErrorMsg('Gagal mendaftar')
+      }
     } finally {
       setLoading(false)
     }
@@ -68,8 +72,12 @@ export default function Register() {
         },
       })
       if (error) throw error
-    } catch (error: any) {
-      setErrorMsg(error.message || 'Gagal login dengan Google.')
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setErrorMsg(error.message || 'Gagal login dengan Google.')
+      } else {
+        setErrorMsg('Gagal login dengan Google.')
+      }
     }
   }
 

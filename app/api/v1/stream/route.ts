@@ -33,7 +33,7 @@ export async function GET(request: Request) {
         const stream = await play.stream_from_info(videoInfo, {
             quality: 1, // Medium quality
             seek: 0
-        }) as any;
+        }) as { url: string };
 
         if (!stream || !stream.url) {
             throw new Error('Stream URL not found after heavy check');
@@ -43,18 +43,19 @@ export async function GET(request: Request) {
             url: stream.url,
             expiresIn: 3600 
         });
-    } catch (error: any) {
-        console.error('SERVER-SIDE STREAM ERROR:', error);
+    } catch (error: unknown) {
+        const err = error as Error;
+        console.error('SERVER-SIDE STREAM ERROR:', err);
         
         // Cek jika error karena bot detection
-        if (error.message.includes('429') || error.message.includes('Too Many Requests')) {
+        if (err.message.includes('429') || err.message.includes('Too Many Requests')) {
             return NextResponse.json({ 
                 error: 'YouTube memblokir akses streaming. Coba gunakan lagu lain atau tunggu beberapa saat.',
                 code: 'RATE_LIMIT'
             }, { status: 429 });
         }
 
-        if (error.message.includes('Sign in')) {
+        if (err.message.includes('Sign in')) {
             return NextResponse.json({ 
                 error: 'Lagu ini memerlukan login YouTube (konten terbatas).',
                 code: 'AGE_RESTRICTED'
@@ -63,7 +64,7 @@ export async function GET(request: Request) {
 
         return NextResponse.json({ 
             error: 'Gagal mengambil aliran suara dari YouTube.',
-            message: error.message
+            message: err.message
         }, { status: 500 });
     }
 }
