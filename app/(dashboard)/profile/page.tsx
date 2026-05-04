@@ -12,6 +12,7 @@ import { Settings, LogOut, Camera, Edit2, User } from 'lucide-react'
 import { supabase } from '@/lib/supabaseClient'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import Button from '@/components/ui/Button'
 
 export default function ProfilePage() {
@@ -60,7 +61,7 @@ export default function ProfilePage() {
                <div className="absolute bottom-[-50px] left-8 flex items-end gap-6">
                   <div className="relative group">
                     <div className="w-40 h-40 bg-gray-800 rounded-full border-8 border-[#0B0F1A] overflow-hidden shadow-xl">
-                       <img src={user?.user_metadata?.avatar_url || 'https://via.placeholder.com/150'} alt="Profile" className="w-full h-full object-cover" />
+                       <Image src={user?.user_metadata?.avatar_url || 'https://via.placeholder.com/150'} alt="Profile" fill className="object-cover" unoptimized />
                     </div>
                     <button className="absolute bottom-2 right-2 bg-(--primary) p-2 rounded-full text-white border-4 border-[#0B0F1A] opacity-0 group-hover:opacity-100 transition">
                       <Camera size={20} />

@@ -10,6 +10,7 @@ import useUser from '@/lib/useUser'
 import { motion } from 'framer-motion'
 import { Plus, Heart, ListMusic, Library } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import Button from '@/components/ui/Button'
 
 export default function LibraryPage() {
@@ -76,7 +77,7 @@ export default function LibraryPage() {
                 <div key={item} className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition group cursor-pointer">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-gray-800 rounded-lg overflow-hidden">
-                       <img src={`https://images.unsplash.com/photo-${1500000000000 + item}?w=100&h=100&fit=crop`} alt="" className="w-full h-full object-cover" />
+                       <Image src={`https://images.unsplash.com/photo-${1500000000000 + item}?w=100&h=100&fit=crop`} alt="" fill className="object-cover" unoptimized />
                     </div>
                     <div>
                       <h4 className="text-white font-medium">Judul Lagu {item}</h4>

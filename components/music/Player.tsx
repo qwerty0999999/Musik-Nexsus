@@ -1,6 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
 import { usePlayer } from '@/lib/usePlayer'
 import { useRef, useEffect, useState } from 'react'
 import { Play, Pause, SkipBack, SkipForward, Repeat, Shuffle, Volume2 } from 'lucide-react'
@@ -60,7 +61,7 @@ export default function Player() {
             </button>
 
             <div className="absolute inset-0 -z-10 opacity-20 blur-[100px] scale-125">
-               <img src={currentSong.cover} className="w-full h-full object-cover" alt="" />
+               <Image src={currentSong.cover} fill className="object-cover" alt="" unoptimized />
             </div>
 
             <motion.div 
@@ -68,7 +69,7 @@ export default function Player() {
               animate={isPlaying ? { scale: [1, 1.02, 1] } : {}}
               transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
             >
-              <img src={currentSong.cover} className="w-full h-full object-cover" alt="" />
+              <Image src={currentSong.cover} fill className="object-cover" alt="" unoptimized />
             </motion.div>
 
             <div className="w-full max-w-2xl text-center">
@@ -121,7 +122,7 @@ export default function Player() {
               animate={isPlaying ? { rotate: 360 } : {}}
               transition={{ repeat: Infinity, duration: 12, ease: 'linear' }}
             >
-              <img src={currentSong.cover} className="w-full h-full object-cover" alt="" />
+              <Image src={currentSong.cover} fill className="object-cover" alt="" unoptimized />
             </motion.div>
             <div className="overflow-hidden">
               <p className="text-white text-sm md:text-base font-semibold truncate group-hover:text-(--primary) transition">{currentSong.title}</p>

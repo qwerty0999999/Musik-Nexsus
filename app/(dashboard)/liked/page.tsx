@@ -10,6 +10,7 @@ import useUser from '@/lib/useUser'
 import { motion } from 'framer-motion'
 import { Heart, Play, Clock, MoreHorizontal } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import Button from '@/components/ui/Button'
 
 export default function LikedSongsPage() {
@@ -87,7 +88,7 @@ export default function LikedSongsPage() {
                     <span className="text-gray-500 text-sm group-hover:hidden">{i + 1}</span>
                     <Play size={14} className="text-white hidden group-hover:block" fill="currentColor" />
                     <div className="flex items-center gap-3">
-                       <img src={song.cover} alt="" className="w-10 h-10 rounded shadow-md" />
+                       <Image src={song.cover} alt="" width={40} height={40} className="w-10 h-10 rounded shadow-md object-cover" unoptimized />
                        <div>
                           <p className="text-white font-medium text-sm truncate">{song.title}</p>
                           <p className="text-gray-500 text-xs truncate">{song.artist}</p>

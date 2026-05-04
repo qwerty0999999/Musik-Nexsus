@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import Button from '@/components/ui/Button'
 import { Music2, AlertCircle } from 'lucide-react'
@@ -139,7 +140,7 @@ export default function Login() {
           onClick={handleGoogleLogin}
           className="w-full flex items-center justify-center gap-3 py-3.5 rounded-xl bg-white text-black font-bold hover:bg-gray-100 transition shadow-lg active:scale-95"
         >
-          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5" />
+          <Image src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width={20} height={20} className="w-5 h-5" unoptimized />
           <span>Google</span>
         </button>
 
