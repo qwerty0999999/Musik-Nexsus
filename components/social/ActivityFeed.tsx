@@ -6,8 +6,16 @@ import Card from '../ui/Card'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Zap } from 'lucide-react'
 
+interface Activity {
+  id?: string;
+  user_id?: string;
+  action?: string;
+  songs?: { title?: string; artist?: string };
+  [key: string]: unknown;
+}
+
 export default function ActivityFeed() {
-  const [activities, setActivities] = useState<Record<string, unknown>[]>([])
+  const [activities, setActivities] = useState<Activity[]>([])
 
   useEffect(() => {
     const fetchInitial = async () => {

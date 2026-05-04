@@ -8,7 +8,7 @@ import useUser from '@/lib/useUser'
 import { Play } from 'lucide-react'
 
 export default function MusicCard({ song }: { song: Record<string, string> }) {
-  const setSong = usePlayer((s: { setSong: (song: unknown) => void }) => s.setSong)
+  const setSong = usePlayer((s) => s.setSong)
   const user = useUser()
 
   const handlePlay = async () => {
