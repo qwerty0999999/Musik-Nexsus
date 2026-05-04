@@ -1,6 +1,6 @@
 'use client'
 
-import { Home, Compass, Library, PlaySquare, LogIn } from 'lucide-react'
+import { LogIn } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import useUser from '@/lib/useUser'

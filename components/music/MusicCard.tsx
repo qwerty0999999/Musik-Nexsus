@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Card from '../ui/Card'
 import { usePlayer } from '@/lib/usePlayer'
 import { supabase } from '@/lib/supabaseClient'
 import useUser from '@/lib/useUser'

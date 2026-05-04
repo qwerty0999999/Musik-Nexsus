@@ -1,6 +1,5 @@
 'use client'
 
-import { Search, Bell } from 'lucide-react'
 import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
