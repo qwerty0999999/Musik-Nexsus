@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Zap } from 'lucide-react'
 
 export default function ActivityFeed() {
-  const [activities, setActivities] = useState<any[]>([])
+  const [activities, setActivities] = useState<Record<string, unknown>[]>([])
 
   useEffect(() => {
     const fetchInitial = async () => {

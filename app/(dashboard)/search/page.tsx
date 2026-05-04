@@ -15,7 +15,7 @@ import { useEffect, useState, Suspense } from 'react'
 function SearchContent() {
   const searchParams = useSearchParams()
   const query = searchParams.get('q')
-  const [results, setResults] = useState<any[]>([])
+  const [results, setResults] = useState<Record<string, unknown>[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   const categories = [

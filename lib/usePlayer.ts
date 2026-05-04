@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 
 interface PlayerState {
-  currentSong: any
-  setSong: (song: any) => void
+  currentSong: Record<string, unknown> | null
+  setSong: (song: Record<string, unknown> | null) => void
 }
 
 export const usePlayer = create<PlayerState>((set) => ({

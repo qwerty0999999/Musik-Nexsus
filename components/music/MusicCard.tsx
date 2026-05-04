@@ -7,8 +7,8 @@ import { supabase } from '@/lib/supabaseClient'
 import useUser from '@/lib/useUser'
 import { Play } from 'lucide-react'
 
-export default function MusicCard({ song }: any) {
-  const setSong = usePlayer((s: any) => s.setSong)
+export default function MusicCard({ song }: { song: Record<string, string> }) {
+  const setSong = usePlayer((s: { setSong: (song: unknown) => void }) => s.setSong)
   const user = useUser()
 
   const handlePlay = async () => {

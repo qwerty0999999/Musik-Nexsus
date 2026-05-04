@@ -42,8 +42,9 @@ export default function Login() {
         router.push('/')
         router.refresh()
       }
-    } catch (error: any) {
-      setErrorMsg(error.message || 'Gagal login. Periksa kembali email dan password.')
+    } catch (error: unknown) {
+      const err = error as Error;
+      setErrorMsg(err.message || 'Gagal login. Periksa kembali email dan password.')
     } finally {
       setLoading(false)
     }
@@ -58,8 +59,12 @@ export default function Login() {
         },
       })
       if (error) throw error
-    } catch (error: any) {
-      setErrorMsg(error.message || 'Gagal login dengan Google.')
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setErrorMsg(error.message || 'Gagal login dengan Google.')
+      } else {
+        setErrorMsg('Gagal login dengan Google.')
+      }
     }
   }
 
