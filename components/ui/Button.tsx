@@ -1,10 +1,10 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, HTMLMotionProps } from 'framer-motion'
 
 import React from 'react'
 
-export default function Button({ children, onClick, className, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+export default function Button({ children, onClick, className, ...props }: HTMLMotionProps<"button">) {
   return (
     <motion.button
       whileTap={{ scale: 0.95 }}

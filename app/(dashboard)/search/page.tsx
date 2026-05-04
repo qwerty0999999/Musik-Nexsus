@@ -80,7 +80,7 @@ function SearchContent() {
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
                 {results.map((song) => (
-                  <MusicCard key={song.id} song={song} />
+                  <MusicCard key={song.id as string} song={song as Record<string, string>} />
                 ))}
               </div>
             )}

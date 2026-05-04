@@ -33,7 +33,7 @@ export async function GET(request: Request) {
         const stream = await play.stream_from_info(videoInfo, {
             quality: 1, // Medium quality
             seek: 0
-        }) as { url: string };
+        }) as unknown as { url: string };
 
         if (!stream || !stream.url) {
             throw new Error('Stream URL not found after heavy check');
