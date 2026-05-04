@@ -29,18 +29,6 @@ function SearchContent() {
     { name: 'R&B', color: 'bg-purple-600', icon: <Mic2 /> },
   ]
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (query) {
-        handleSearch(query)
-      } else {
-        setResults([])
-      }
-    }, 800) // Jeda 800ms agar lebih santai
-
-    return () => clearTimeout(timer)
-  }, [query])
-
   const handleSearch = async (searchQuery: string) => {
     setIsLoading(true)
     try {
@@ -55,6 +43,18 @@ function SearchContent() {
       setIsLoading(false)
     }
   }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (query) {
+        handleSearch(query)
+      } else {
+        setResults([])
+      }
+    }, 800) // Jeda 800ms agar lebih santai
+
+    return () => clearTimeout(timer)
+  }, [query])
 
   return (
     <Container>

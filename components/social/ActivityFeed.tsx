@@ -10,6 +10,16 @@ export default function ActivityFeed() {
   const [activities, setActivities] = useState<any[]>([])
 
   useEffect(() => {
+    const fetchInitial = async () => {
+      const { data } = await supabase
+        .from('activities')
+        .select('*, songs(title, artist)')
+        .order('created_at', { ascending: false })
+        .limit(10)
+
+      setActivities(data || [])
+    }
+
     fetchInitial()
 
     const channel = supabase
@@ -31,16 +41,6 @@ export default function ActivityFeed() {
       supabase.removeChannel(channel)
     }
   }, [])
-
-  const fetchInitial = async () => {
-    const { data } = await supabase
-      .from('activities')
-      .select('*, songs(title, artist)')
-      .order('created_at', { ascending: false })
-      .limit(10)
-
-    setActivities(data || [])
-  }
 
   return (
     <div className="w-80 h-screen border-l border-white/5 p-6 hidden xl:flex flex-col gap-6 sticky top-0">
