@@ -11,7 +11,7 @@ import { useEffect, useState, Suspense } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import { motion } from 'framer-motion'
 import useUser from '@/lib/useUser'
-import { Sparkles, TrendingUp, ChevronRight } from 'lucide-react'
+import { ChevronRight } from 'lucide-react'
 
 export default function Home() {
   const [songs, setSongs] = useState<any[]>([])

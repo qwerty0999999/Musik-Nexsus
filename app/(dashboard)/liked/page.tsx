@@ -8,7 +8,7 @@ import Player from '@/components/music/Player'
 import ActivityFeed from '@/components/social/ActivityFeed'
 import useUser from '@/lib/useUser'
 import { motion } from 'framer-motion'
-import { Heart, Play, Clock, MoreHorizontal, LogIn } from 'lucide-react'
+import { Heart, Play, Clock, MoreHorizontal } from 'lucide-react'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
 

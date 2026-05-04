@@ -69,7 +69,7 @@ function SearchContent() {
         {query ? (
           <>
             <h1 className="text-white text-2xl md:text-3xl font-bold mb-8">
-              Hasil Pencarian: <span className="text-(--primary)">"{query}"</span>
+              Hasil Pencarian: <span className="text-(--primary)">&quot;{query}&quot;</span>
             </h1>
             
             {isLoading ? (
