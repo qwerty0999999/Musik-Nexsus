@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { usePlayer } from '@/lib/usePlayer'
 import { supabase } from '@/lib/supabaseClient'
 import useUser from '@/lib/useUser'
@@ -51,10 +52,12 @@ export default function MusicCard({ song }: any) {
     >
       <div className="relative bg-white/5 border border-white/5 p-4 rounded-2xl transition-all duration-300 group-hover:bg-white/[0.08] group-hover:border-white/10 group-hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)]">
         <div className="relative aspect-square mb-4 overflow-hidden rounded-xl">
-          <img 
+          <Image 
             src={song.cover || 'https://via.placeholder.com/300'} 
             alt={song.title}
-            className="w-full h-full object-cover transition duration-700 group-hover:scale-110" 
+            fill
+            className="object-cover transition duration-700 group-hover:scale-110" 
+            unoptimized
           />
           {/* Play button overlay */}
           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -70,3 +73,4 @@ export default function MusicCard({ song }: any) {
     </motion.div>
   )
 }
+
