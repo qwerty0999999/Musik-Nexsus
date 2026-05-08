@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { usePlayer } from '@/lib/usePlayer'
 import { useRef, useEffect, useState } from 'react'
-import { Play, Pause, SkipBack, SkipForward, Repeat, Shuffle, Volume2 } from 'lucide-react'
+import { Play, Pause, SkipBack, SkipForward, Repeat, Shuffle, Volume2, Maximize2, ListMusic } from 'lucide-react'
 
 export default function Player() {
   const { currentSong } = usePlayer() as { currentSong: { url: string, cover: string, title: string, artist: string, duration?: string } | null }
@@ -51,139 +51,122 @@ export default function Player() {
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 200 }}
-            className="fixed inset-0 bg-[#0B0F1A] z-100 p-6 md:p-12 flex flex-col items-center justify-center gap-8 md:gap-12"
+            className="fixed inset-0 bg-near-black z-100 p-8 flex flex-col"
           >
-            <button 
+             <button 
               onClick={(e) => { e.stopPropagation(); setIsFullPlayer(false); }}
-              className="absolute top-6 md:top-8 right-6 md:right-8 text-gray-500 hover:text-white transition p-2"
+              className="absolute top-8 left-8 text-silver hover:text-white transition"
             >
-              <SkipBack size={28} className="-rotate-90 md:w-8 md:h-8" />
+              <SkipBack size={24} className="-rotate-90" />
             </button>
 
-            <div className="absolute inset-0 -z-10 opacity-20 blur-[100px] scale-125">
-               <Image src={currentSong.cover} fill className="object-cover" alt="" unoptimized />
-            </div>
+            <div className="flex-1 flex flex-col md:flex-row items-center justify-center gap-12 max-w-6xl mx-auto w-full">
+              <div className="w-full max-w-[400px] aspect-square relative shadow-2xl">
+                 <Image src={currentSong.cover} fill className="object-cover rounded-lg" alt="" unoptimized />
+              </div>
 
-            <motion.div 
-              className="w-full max-w-[300px] md:max-w-md aspect-square rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5"
-              animate={isPlaying ? { scale: [1, 1.02, 1] } : {}}
-              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-            >
-              <Image src={currentSong.cover} fill className="object-cover" alt="" unoptimized />
-            </motion.div>
+              <div className="flex-1 w-full space-y-8">
+                 <div className="space-y-2">
+                    <h1 className="text-white text-5xl md:text-7xl font-bold tracking-tighter">{currentSong.title}</h1>
+                    <p className="text-silver text-2xl font-semibold">{currentSong.artist}</p>
+                 </div>
 
-            <div className="w-full max-w-2xl text-center">
-               <h1 className="text-white text-4xl md:text-7xl font-bold mb-3 tracking-tighter truncate px-4">{currentSong.title}</h1>
-               <p className="text-(--primary) text-xl md:text-2xl mb-12 font-semibold tracking-wide uppercase opacity-90 truncate">{currentSong.artist}</p>
-
-               <div className="space-y-10 md:space-y-12 px-4">
-                  <div className="space-y-3">
-                    <div className="w-full h-1.5 bg-white/5 rounded-full relative overflow-hidden group cursor-pointer">
+                 <div className="space-y-4">
+                    <div className="w-full h-1 bg-white/10 rounded-full relative group cursor-pointer">
                       <motion.div 
-                        className="absolute inset-y-0 left-0 bg-white shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+                        className="absolute inset-y-0 left-0 bg-white group-hover:bg-spotify-green"
                         animate={{ width: `${progress}%` }}
                       />
                     </div>
-                    <div className="flex justify-between text-gray-500 text-xs font-bold tracking-widest uppercase">
+                    <div className="flex justify-between text-silver text-xs font-bold uppercase tracking-widest">
                       <span>0:00</span>
                       <span>3:45</span>
                     </div>
-                  </div>
 
-                  <div className="flex items-center justify-center gap-10 md:gap-16 text-white">
-                    <Shuffle size={20} className="text-gray-500 hover:text-white cursor-pointer transition hidden sm:block" />
-                    <SkipBack size={36} className="cursor-pointer hover:text-(--primary) transition" />
-                    <button 
-                      onClick={togglePlay}
-                      className="w-20 h-20 md:w-28 md:h-28 bg-white rounded-full flex items-center justify-center text-black hover:scale-105 transition-all duration-300 shadow-2xl active:scale-95"
-                    >
-                      {isPlaying ? <Pause fill="currentColor" size={32} /> : <Play fill="currentColor" size={32} className="ml-1" />}
-                    </button>
-                    <SkipForward size={36} className="cursor-pointer hover:text-(--primary) transition" />
-                    <Repeat size={20} className="text-gray-500 hover:text-white cursor-pointer transition hidden sm:block" />
-                  </div>
-               </div>
+                    <div className="flex items-center justify-between mt-8">
+                       <Shuffle size={24} className="text-silver hover:text-white cursor-pointer" />
+                       <div className="flex items-center gap-8">
+                          <SkipBack size={32} className="text-white hover:text-spotify-green cursor-pointer" />
+                          <button 
+                            onClick={togglePlay}
+                            className="w-20 h-20 bg-white rounded-full flex items-center justify-center text-black hover:scale-105 transition active:scale-95"
+                          >
+                            {isPlaying ? <Pause fill="currentColor" size={32} /> : <Play fill="currentColor" size={32} className="ml-1" />}
+                          </button>
+                          <SkipForward size={32} className="text-white hover:text-spotify-green cursor-pointer" />
+                       </div>
+                       <Repeat size={24} className="text-silver hover:text-white cursor-pointer" />
+                    </div>
+                 </div>
+              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <motion.div
-        initial={{ y: 100 }}
-        animate={{ y: 0 }}
-        onClick={() => setIsFullPlayer(true)}
-        className="fixed bottom-[72px] md:bottom-0 left-0 right-0 bg-[#0B0F1A]/90 backdrop-blur-xl border-t border-white/5 px-4 md:px-6 py-3 md:py-4 z-50 cursor-pointer group"
+      <div
+        className="fixed bottom-0 left-0 right-0 bg-black border-t border-white/5 px-4 h-24 z-50 flex items-center"
       >
-        <div className="max-w-screen-2xl mx-auto flex justify-between items-center gap-4 md:gap-8">
+        <div className="w-full flex justify-between items-center max-w-[100vw]">
           {/* Song Info */}
-          <div className="flex gap-3 md:gap-4 items-center w-1/2 md:w-1/4">
-            <motion.div 
-              className="w-10 h-10 md:w-14 md:h-14 rounded-lg overflow-hidden border border-white/10 shrink-0"
-              animate={isPlaying ? { rotate: 360 } : {}}
-              transition={{ repeat: Infinity, duration: 12, ease: 'linear' }}
+          <div className="flex gap-4 items-center w-[30%]">
+            <div 
+              className="w-14 h-14 relative rounded-md overflow-hidden cursor-pointer group"
+              onClick={() => setIsFullPlayer(true)}
             >
               <Image src={currentSong.cover} fill className="object-cover" alt="" unoptimized />
-            </motion.div>
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                <Maximize2 size={18} className="text-white" />
+              </div>
+            </div>
             <div className="overflow-hidden">
-              <p className="text-white text-sm md:text-base font-semibold truncate group-hover:text-(--primary) transition">{currentSong.title}</p>
-              <p className="text-(--muted) text-xs md:text-sm truncate">{currentSong.artist}</p>
+              <p className="text-white text-sm font-bold truncate hover:underline cursor-pointer">{currentSong.title}</p>
+              <p className="text-silver text-xs hover:underline cursor-pointer truncate">{currentSong.artist}</p>
             </div>
           </div>
 
-          {/* Controls */}
-          <div className="flex flex-col items-center gap-1 md:gap-2 flex-1 md:max-w-2xl">
-            <div className="flex items-center gap-4 md:gap-6 text-gray-400">
-              <Shuffle size={18} className="hidden md:block cursor-pointer hover:text-(--primary) transition" />
-              <SkipBack size={20} className="cursor-pointer hover:text-white transition" />
+          {/* Player Controls */}
+          <div className="flex flex-col items-center gap-2 flex-1 max-w-[40%]">
+            <div className="flex items-center gap-6 text-silver">
+              <Shuffle size={16} className="hover:text-white cursor-pointer transition" />
+              <SkipBack size={20} className="hover:text-white cursor-pointer transition" />
               <button 
                 onClick={togglePlay}
-                className="w-9 h-9 md:w-10 md:h-10 bg-white rounded-full flex items-center justify-center text-black hover:scale-105 transition active:scale-95"
+                className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-black hover:scale-105 transition active:scale-95"
               >
-                {isPlaying ? <Pause fill="currentColor" size={18} /> : <Play fill="currentColor" size={18} className="ml-1" />}
+                {isPlaying ? <Pause fill="currentColor" size={16} /> : <Play fill="currentColor" size={16} className="ml-1" />}
               </button>
-              <SkipForward size={20} className="cursor-pointer hover:text-white transition" />
-              <Repeat size={18} className="hidden md:block cursor-pointer hover:text-(--primary) transition" />
+              <SkipForward size={20} className="hover:text-white cursor-pointer transition" />
+              <Repeat size={16} className="hover:text-white cursor-pointer transition" />
             </div>
 
-            <div className="w-full hidden md:flex items-center gap-3">
-              <span className="text-[10px] text-gray-500 w-8 text-right">0:00</span>
-              <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden group/progress cursor-pointer relative">
+            <div className="w-full flex items-center gap-2">
+              <span className="text-[11px] text-silver w-8 text-right font-medium">0:00</span>
+              <div className="flex-1 h-1 bg-white/10 rounded-full group cursor-pointer relative overflow-hidden">
                 <motion.div
-                  className="absolute inset-y-0 left-0 bg-(--primary) group-hover/progress:bg-(--accent) transition-colors"
+                  className="absolute inset-y-0 left-0 bg-white group-hover:bg-spotify-green"
                   animate={{ width: `${progress}%` }}
                 />
               </div>
-              <span className="text-[10px] text-gray-500 w-8">3:45</span>
+              <span className="text-[11px] text-silver w-8 font-medium">3:45</span>
             </div>
           </div>
 
-          {/* Volume & Extras (Desktop only) */}
-          <div className="hidden md:flex items-center gap-4 w-1/4 justify-end">
-            <div className="flex gap-1 h-4 items-end">
-              {[...Array(5)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="w-1 bg-(--primary) rounded-full"
-                  animate={isPlaying ? { height: [4, 16, 8, 12, 4] } : { height: 4 }}
-                  transition={{ repeat: Infinity, duration: 0.8, delay: i * 0.1 }}
-                />
-              ))}
-            </div>
-            <div className="flex items-center gap-2">
-              <Volume2 size={18} className="text-gray-400" />
-              <div className="w-24 h-1 bg-white/10 rounded-full overflow-hidden">
-                <div className="w-2/3 h-full bg-white/40" />
-              </div>
-            </div>
+          {/* Volume & Extra */}
+          <div className="flex items-center gap-4 w-[30%] justify-end text-silver">
+             <ListMusic size={18} className="hover:text-white cursor-pointer" />
+             <div className="flex items-center gap-2 w-32">
+                <Volume2 size={18} />
+                <div className="flex-1 h-1 bg-white/10 rounded-full group cursor-pointer relative overflow-hidden">
+                   <div className="w-2/3 h-full bg-white group-hover:bg-spotify-green" />
+                </div>
+             </div>
+             <Maximize2 
+              size={18} 
+              className="hover:text-white cursor-pointer" 
+              onClick={() => setIsFullPlayer(true)}
+            />
           </div>
-        </div>
-
-        {/* Mobile Progress Bar (Mini) */}
-        <div className="md:hidden absolute top-0 left-0 right-0 h-[2px] bg-white/5">
-          <motion.div 
-            className="h-full bg-(--primary)"
-            animate={{ width: `${progress}%` }}
-          />
         </div>
         
         <audio 
@@ -191,9 +174,7 @@ export default function Player() {
           onTimeUpdate={handleTimeUpdate}
           onEnded={() => setIsPlaying(false)}
         />
-      </motion.div>
+      </div>
     </>
   )
 }
-
-

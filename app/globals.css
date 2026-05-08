@@ -1,25 +1,49 @@
 @import "tailwindcss";
 
-:root {
-  --bg: #030303;
-  --card: #1d1d1d;
-  --primary: #ffffff;
-  --accent: #ff0000;
-  --text: #FFFFFF;
-  --muted: #aaaaaa;
+@theme {
+  --color-spotify-green: #1ed760;
+  --color-spotify-green-hover: #1fdf64;
+  --color-near-black: #121212;
+  --color-dark-surface: #181818;
+  --color-mid-dark: #1f1f1f;
+  --color-dark-card: #252525;
+  --color-border-gray: #4d4d4d;
+  --color-silver: #b3b3b3;
+  
+  /* Semantic Mappings */
+  --color-background: #121212;
+  --color-foreground: #ffffff;
+  --color-primary: #1ed760;
+  --color-secondary: #1f1f1f;
+  --color-muted: #b3b3b3;
+  --color-border: #282828;
 }
 
 body {
-  background-color: var(--bg);
-  color: var(--text);
-  font-family: 'Inter', sans-serif;
-  letter-spacing: -0.01em;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: "SpotifyMixUI", "CircularSp", "Helvetica Neue", helvetica, arial, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, "MS Gothic", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "SpotifyMixUITitle", "CircularSp", sans-serif;
+    @apply font-bold tracking-tight;
+  }
 }
 
 @layer utilities {
-  .glass {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  .spotify-shadow-heavy {
+    box-shadow: rgba(0,0,0,0.5) 0px 8px 24px;
+  }
+  
+  .spotify-shadow-medium {
+    box-shadow: rgba(0,0,0,0.3) 0px 8px 8px;
+  }
+  
+  .spotify-inset-border {
+    box-shadow: rgb(18,18,18) 0px 1px 0px, rgb(124,124,124) 0px 0px 0px 1px inset;
   }
 }
