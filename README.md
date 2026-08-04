@@ -50,8 +50,8 @@
 
 1. **Clone repository:**
    ```bash
-   git clone https://github.com/username/musik-nexsus.git
-   cd musik-nexsus
+   git clone https://github.com/qwerty0999999/Musik-Nexsus.git
+   cd Musik-Nexsus
    ```
 
 2. **Instal dependensi:**
@@ -60,7 +60,7 @@
    ```
 
 3. **Konfigurasi Environment:**
-   Buat file `.env.local` dan lengkapi variabel berikut:
+   Buat file `.env.local` dan sesuaikan dengan kebutuhan berikut:
    ```env
    # Database (Prisma)
    DATABASE_URL="postgresql://user:password@localhost:5432/musik_nexsus"
@@ -86,6 +86,12 @@
 5. **Jalankan server pengembangan:**
    ```bash
    npm run dev
+   ```
+
+6. **Build untuk Produksi:**
+   ```bash
+   npm run build
+   npm run start
    ```
 
 Buka [http://localhost:3000](http://localhost:3000) untuk melihat hasilnya!
